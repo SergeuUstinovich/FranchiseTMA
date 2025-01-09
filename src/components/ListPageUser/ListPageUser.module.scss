@@ -1,0 +1,36 @@
+.box {
+  width: 100%;
+
+  .list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .item {
+      background: var(--gray-primary);
+      border-radius: 16px;
+      padding: 12px;
+
+      .link {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .namePath {
+          display: flex;
+          align-items: center;
+
+          .boxSvg {
+            margin-right: 8px;
+          }
+
+          .descr {
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 137%;
+          }
+        }
+      }
+    }
+  }
+}

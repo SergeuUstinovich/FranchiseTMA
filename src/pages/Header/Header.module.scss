@@ -1,0 +1,63 @@
+.box {
+  padding: 0 15px 5px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .boxInfo {
+    display: flex;
+    align-items: center;
+
+    .svgImgBox {
+      width: 44px;
+      height: 44px;
+      background-color: var(--gray-primary);
+      border-radius: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 8px;
+    }
+
+    .boxName {
+      .name {
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 133%;
+      }
+
+      .lvl {
+        font-weight: 500;
+        font-size: 10px;
+        line-height: 140%;
+        color: var(--gray-tretiary);
+      }
+    }
+  }
+
+  .boxCoin {
+    display: flex;
+    gap: 4px;
+
+    .coinBox {
+      display: flex;
+      align-items: center;
+      border-radius: 8px;
+      padding: 4px 8px;
+      background: #001833;
+
+      .imgCoin {
+        width: 14px;
+        height: 14px;
+        margin-right: 2px;
+      }
+
+      .numberCoin {
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 133%;
+        padding-top: 2px;
+      }
+    }
+  }
+}

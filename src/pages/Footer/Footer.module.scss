@@ -1,0 +1,51 @@
+.box {
+  background-color: var(--gray-primary);
+  width: 100%;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+
+  .list {
+    display: flex;
+    padding: 10px 8px 12px 8px;
+    justify-content: space-between;
+
+    .item {
+      width: 71px;
+
+      .link {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        .svgBox {
+          width: 100%;
+          margin-bottom: 6px;
+          display: flex;
+          justify-content: center;
+          padding: 4px 0;
+        }
+
+        .svgBox.active {
+          background-color: var(--blue-secondary);
+          border-radius: 8px;
+
+          svg path {
+            fill: var(--blue-primary);
+          }
+        }
+
+        .title {
+          font-weight: 500;
+          font-size: 12px;
+          line-height: 133%;
+          color: var(--gray-tretiary);
+        }
+
+        .title.active {
+          color: var(--blue-primary);
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,53 @@
+.container {
+  max-width: 576px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 15px;
+}
+
+.app {
+  height: 100svh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+
+  
+
+  .header {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    background: var(--black);
+    padding-top: 15px;
+    width: 100%;
+  }
+
+  .main {
+    height: calc(100% - 1em);
+    overflow: hidden auto;
+    width: 100%;
+  }
+
+  .main.activeEdit {
+    padding-bottom: 105px;
+  }
+
+  .footer {
+    position: fixed;
+    bottom: 0;
+    padding-bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    width: 100%;
+    background-color: var(--black);
+  }
+}
+
+.app.activeProfile {
+    padding-top: 59px;
+}
+
+
