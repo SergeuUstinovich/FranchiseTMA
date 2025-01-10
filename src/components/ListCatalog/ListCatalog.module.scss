@@ -1,0 +1,118 @@
+.list {
+  width: 100%;
+
+  .item {
+    background: var(--gray-primary);
+    border-radius: 16px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+    .boxImg {
+      margin-bottom: 4px;
+      position: relative;
+
+      .img {
+        width: 100%;
+      }
+
+      .blockLvl {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.8);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .boxLvlOpen {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .svgLock {
+          margin-bottom: 10px;
+        }
+
+        .lvlOpenDescr {
+          font-weight: 500;
+          font-size: 12px;
+          line-height: 133%;
+        }
+      }
+    }
+
+    .title {
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 133%;
+      margin-bottom: 4px;
+    }
+
+    .descr {
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 133%;
+      margin-bottom: 8px;
+    }
+
+    .boxNumber {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 4px;
+    }
+
+    .boxNumberStart {
+      display: flex;
+      margin-bottom: 8px;
+    }
+
+    .numberDescr {
+      background: var(--gray-secondary);
+      border-radius: 24px;
+      padding: 4px 8px;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 133%;
+      color: var(--gray-tretiary);
+    }
+
+    .span {
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 133%;
+      color: var(--white);
+      margin-left: 3px;
+    }
+
+    .link {
+      background: var(--blue-primary);
+      border-radius: 16px;
+      padding: 11px 12px;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 114%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .favorites {
+      position: absolute;
+      top: 22px;
+      right: 22px;
+      background: rgba(0, 0, 0, 0.6);
+      border-radius: 8px;
+      padding: 4px;
+    }
+  }
+}
+
+.isfavorites path {
+  fill: var(--blue-primary);
+}

@@ -4,6 +4,15 @@ import { dataNav } from "./dataNav";
 
 export function Footer() {
   const location = useLocation();
+
+  const isActive = (path:string) => {
+    if (path === '/') {
+      return location.pathname === path || location.pathname.startsWith('/catalog');
+    } else {
+      return location.pathname.startsWith(path);
+    }
+  };
+
   return (
     <div className={style.box}>
       <ul className={style.list}>
@@ -12,14 +21,14 @@ export function Footer() {
             <Link className={style.link} to={item.path}>
               <div
                 className={`${style.svgBox} ${
-                  (item.path === '/' ? location.pathname === item.path : location.pathname.startsWith(item.path)) ? style.active : ''
+                  isActive(item.path) ? style.active : ''
                 }`}
               >
                 {item.svg}
               </div>
               <h3
                 className={`${style.title} ${
-                  (item.path === '/' ? location.pathname === item.path : location.pathname.startsWith(item.path)) ? style.active : ''
+                  isActive(item.path) ? style.active : ''
                 }`}
               >
                 {item.title}

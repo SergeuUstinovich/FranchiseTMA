@@ -10,6 +10,7 @@ const EditingProfile = lazy(() => import("./pages/EditingProfile/EditingProfile"
 const Features = lazy(() => import("./pages/Features/Features"));
 const Achievements = lazy(() => import("./pages/Achievements/Achievements"));
 const InviteFriend = lazy(() => import("./pages/InviteFriend/InviteFriend"));
+const InfoPageCatalog = lazy(() => import("./pages/InfoPageCatalog/InfoPageCatalog"));
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             <Route path={'profile-featured'} element={<Features />} />
             <Route path={'profile-achievements'} element={<Achievements />} />
             <Route path={'profile-friends'} element={<InviteFriend />} />
+            <Route path={'catalog/:id'} element={<InfoPageCatalog />} />
           </Route>
         </Routes>
       </Suspense>
