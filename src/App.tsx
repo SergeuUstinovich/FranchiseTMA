@@ -11,6 +11,8 @@ const Features = lazy(() => import("./pages/Features/Features"));
 const Achievements = lazy(() => import("./pages/Achievements/Achievements"));
 const InviteFriend = lazy(() => import("./pages/InviteFriend/InviteFriend"));
 const InfoPageCatalog = lazy(() => import("./pages/InfoPageCatalog/InfoPageCatalog"));
+const Education = lazy(() => import("./pages/Education/Education"));
+const QrCodeUser = lazy(() => import("./pages/QrCodeUser/QrCodeUser"));
 
 function App() {
   return (
@@ -20,13 +22,14 @@ function App() {
           <Route path={"/"} element={<Layout />}>
             <Route index element={<Catalog />} />
             <Route path={'game'} element={<TestGame />} />
-            <Route path={'education'} element={<Catalog />} />
+            <Route path={'education'} element={<Education />} />
             <Route path={'tasks'} element={<Catalog />} />
             <Route path={'profile'} element={<Profile />} />
             <Route path={'profile-edit'} element={<EditingProfile />} />
             <Route path={'profile-featured'} element={<Features />} />
             <Route path={'profile-achievements'} element={<Achievements />} />
             <Route path={'profile-friends'} element={<InviteFriend />} />
+            <Route path={'profile-edit-qr'} element={<QrCodeUser />} />
             <Route path={'catalog/:id'} element={<InfoPageCatalog />} />
           </Route>
         </Routes>

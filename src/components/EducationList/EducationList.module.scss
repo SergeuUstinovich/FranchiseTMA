@@ -1,0 +1,87 @@
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .item {
+        background: var(--gray-primary);
+        border-radius: 16px;
+        padding: 12px;
+
+        .title {
+            font-weight: 700;
+            font-size: 18px;
+            line-height: 133%;
+            margin-bottom: 8px;
+        }
+
+        .progressBar {
+            margin-bottom: 16px;
+        }
+
+        .lvl {
+            font-weight: 500;
+            font-size: 10px;
+            line-height: 140%;
+        }
+
+        .listLesson {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 16px;
+
+            .itemLesson {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+
+                .boxLesson {
+
+                    .titleLesson {
+                        display: flex;
+                        font-weight: 400;
+                        font-size: 16px;
+                        line-height: 137%;
+                        margin-bottom: 4px;
+
+                        .compliteSpan {
+                            margin-left: 5px;
+                        }
+                    }
+
+                    .descrLesson {
+                        font-weight: 500;
+                        font-size: 12px;
+                        line-height: 133%;
+                    }
+                }
+
+                .btnLesson {
+                    background: var(--blue-primary);
+                    border-radius: 8px;
+                    padding: 10px;
+                    width: 42px;
+                    height: 42px;
+
+                    .svgLock {
+                        width: 22px;
+                        height: 22px;
+                    }
+                }
+            }
+        }
+    }
+
+    .btn {
+        width: 100%;
+        border-radius: 16px;
+        padding: 11px;
+        background: var(--blue-primary);
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 114%;
+        color: var(--white);
+    }
+}

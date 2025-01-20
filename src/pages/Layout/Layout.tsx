@@ -37,7 +37,7 @@ function Layout() {
         <Outlet />
       </main>
       <footer className={style.footer}>
-        {!location.pathname.startsWith("/profile-edit") && <Footer />}
+        {(!location.pathname.startsWith("/profile-edit")) && <Footer />}
       </footer>
     </div>
   );

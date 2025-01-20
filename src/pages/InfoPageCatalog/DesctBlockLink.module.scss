@@ -1,0 +1,38 @@
+.descr {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 137%;
+  color: var(--gray-tretiary);
+  margin-bottom: 8px;
+
+  .span {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 137%;
+    color: var(--white);
+  }
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 16px;
+  padding: 12px;
+  background: var(--gray-primary);
+
+  .boxTitle {
+    display: flex;
+    align-items: center;
+
+    .img {
+      margin-right: 8px;
+    }
+
+    .title {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 137%;
+    }
+  }
+}

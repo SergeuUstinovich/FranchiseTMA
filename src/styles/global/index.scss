@@ -1,5 +1,5 @@
-@import url('./normalize.css');
-@import url('./fonts.scss');
+@use './normalize.css';
+@use './fonts.scss';
 
 html {
   box-sizing: border-box;
@@ -16,6 +16,8 @@ html {
 :root {
   --white: #fff;
   --black: #000;
+  --red: #d91717;
+  --gray-text-secondary: #979797;
   --gray-tretiary: #a5a7a7;
   --gray-primary: #1c1c1e;
 	--gray-secondary: #262628;
