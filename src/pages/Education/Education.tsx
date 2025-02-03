@@ -6,7 +6,7 @@ const educationArr = [
         title: 'Основы успешного ведения франшизы',
         id: '1',
         idPerson: '1',
-        progressBar: 20,
+        progressBar: 60,
         listLessons: [
             {
                 name: 'Урок 1',

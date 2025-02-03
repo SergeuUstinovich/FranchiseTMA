@@ -1,18 +1,24 @@
+import { useSelector } from "react-redux";
 import style from "./StatisticsUser.module.scss";
+import { getProfileStata } from "../../providers/StoreProvider/selectors/getProfile";
 
 export function StatisticsUser() {
+  const stata = useSelector(getProfileStata)
   return (
     <div className={style.box}>
       <h2 className={style.title}>Статистика</h2>
       <div className={style.boxStat}>
         <p className={style.descr}>
-          Пройдено уроков: <span className={style.span}>4</span>
+          Пройдено уроков: <span className={style.span}>{stata?.completed_lessons}</span>
         </p>
         <p className={style.descr}>
-          Количество проданных франшиз: <span className={style.span}>10</span>
+          Количество проданных франшиз: <span className={style.span}>{stata?.count_of_selling_franchise}</span>
         </p>
         <p className={style.descr}>
-          Кол-во вып. заданий: <span className={style.span}>3</span>
+          Количество регистраций: <span className={style.span}>{stata?.count_of_registration}</span>
+        </p>
+        <p className={style.descr}>
+          Количество сделок группы: <span className={style.span}>{stata?.count_of_group_offers}</span>
         </p>
       </div>
     </div>

@@ -7,19 +7,20 @@ import {
   EditinProfileType,
 } from "../../types/EditingProfileType";
 import { Button } from "../../ui/Button";
+import useMutateAll from "../../utils/useMutateAll";
+import { useSelector } from "react-redux";
+import { getProfileUser } from "../../providers/StoreProvider/selectors/getProfile";
 
 function EditingProfile() {
+  const { editProfileMutate } = useMutateAll();
+  const profile = useSelector(getProfileUser);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm<EditinProfileType>({
     resolver: zodResolver(EditinProfileScheme),
-    defaultValues: {
-        firstName: 'Иван',
-        lastName: 'Иванов'
-    }
   });
 
   return (
@@ -27,25 +28,55 @@ function EditingProfile() {
       <form
         className={style.form}
         onSubmit={handleSubmit(({ firstName, lastName, city, phone }) => {
-          console.log(firstName, lastName, city, phone);
-          reset();
+          editProfileMutate.mutate({
+            name: firstName,
+            last_name: lastName,
+            city,
+            mobile_phone: phone,
+          });
         })}
       >
         <div className={style.boxInput}>
           <FormField errorMessage={errors.firstName?.message} label="Имя">
-            <input placeholder="Введите имя" {...register("firstName")} type="text" />
+            <input
+              defaultValue={profile?.tg_first_name}
+              placeholder="Введите имя"
+              {...register("firstName")}
+              type="text"
+              maxLength={20}
+            />
           </FormField>
           <FormField errorMessage={errors.lastName?.message} label="Фамилия">
-            <input placeholder="Введите фамилию" {...register("lastName")} type="text" />
+            <input
+              defaultValue={profile?.tg_last_name}
+              placeholder="Введите фамилию"
+              {...register("lastName")}
+              type="text"
+              maxLength={20}
+            />
           </FormField>
           <FormField errorMessage={errors.city?.message} label="Город">
-            <input placeholder="Введите город" {...register("city")} type="text" />
+            <input
+              defaultValue={profile?.city}
+              placeholder="Введите город"
+              {...register("city")}
+              type="text"
+              maxLength={20}
+            />
           </FormField>
           <FormField errorMessage={errors.phone?.message} label="Телефон">
-            <input placeholder="Введите номер телефона" {...register("phone")} type="text" />
+            <input
+              defaultValue={profile?.mobile_phone}
+              placeholder="Введите номер телефона"
+              {...register("phone")}
+              type="text"
+              maxLength={20}
+            />
           </FormField>
         </div>
-        <Button className={style.btn} type="submit">Сохранить</Button>
+        <Button className={style.btn} type="submit">
+          Сохранить
+        </Button>
       </form>
     </div>
   );

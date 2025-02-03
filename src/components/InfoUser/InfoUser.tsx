@@ -2,44 +2,43 @@ import { Link } from "react-router-dom";
 import { ProgressBar } from "..";
 import { EditingProfileSvg, ProfileNavSvg } from "../../assets/svg";
 import { displayName } from "../../helpers/truncateText";
-import { useTelegram } from "../../providers/telegram/telegram";
 import style from "./InfoUser.module.scss";
-
-const obj = {
-  city: "Moсква",
-  telefon: "+799 (12) 345 67 67",
-};
+import { useSelector } from "react-redux";
+import { getProfileUser } from "../../providers/StoreProvider/selectors/getProfile";
 
 export function InfoUser() {
-  const { photo, firstName, lastName, userName } = useTelegram();
+  const profile = useSelector(getProfileUser)
+
   return (
     <div className={style.box}>
       <div className={style.svgBox}>
-        {photo ? (
-          <img src={photo} alt="" />
+        {profile?.photo_url ? (
+          <img className={style.imgProfile} src={profile?.photo_url} alt="" />
         ) : (
           <ProfileNavSvg className={style.svgProfile} />
         )}
       </div>
-      <h2 className={style.title}>
-        {displayName(30, firstName, lastName, userName)}
+      {profile && (
+        <h2 className={style.title}>
+        {displayName(30, profile.tg_first_name, profile.tg_last_name, profile.tg_username)}
       </h2>
+      )}
       <div className={style.boxBar}>
         <ProgressBar
-          progress={50}
-          children={<p className={style.lvl}>1 Уровень</p>}
+          progress={30}
+          children={<p className={style.lvl}>{profile?.lvl} Уровень</p>}
         />
       </div>
-      {(obj.city || obj.telefon) && (
+      {(profile?.city || profile?.mobile_phone) && (
         <div className={style.infoData}>
-          {obj.city && (
+          {profile.city && (
             <p className={style.descr}>
-              Город: <span className={style.span}>{obj.city}</span>
+              Город: <span className={style.span}>{profile.city}</span>
             </p>
           )}
-          {obj.telefon && (
+          {profile.mobile_phone && (
             <p className={style.descr}>
-              Телефон: <span className={style.span}>{obj.telefon}</span>
+              Телефон: <span className={style.span}>{profile.mobile_phone}</span>
             </p>
           )}
         </div>

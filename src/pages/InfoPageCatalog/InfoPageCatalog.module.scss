@@ -10,6 +10,7 @@
 
     .img {
       width: 100%;
+      max-height: 196px;
     }
 
     .favorites {
@@ -83,6 +84,7 @@
       font-size: 14px;
       line-height: 143%;
       color: var(--gray-tretiary);
+      background-color: transparent;
     }
   }
 
@@ -108,4 +110,8 @@
 
 .isfavorites path {
   fill: var(--blue-primary);
+}
+
+.blurImage {
+  height: 169px;
 }

@@ -1,10 +1,16 @@
 import { configureStore, ReducersMapObject } from "@reduxjs/toolkit";
 import { StateScheme } from "./StateScheme";
-import { tokenReducer } from "../slice/tokenSlice";
+import { mainReducer } from "../slice/mainSlice";
+import { profileReducer } from "../slice/profileSlice";
+import { allFranchiseReducer } from "../slice/allFranchiseSlice";
+import { allFavoritesReducer } from "../slice/allFavorites";
 
 export function createReduxStore(initialState?: StateScheme) {
   const rootReducer: ReducersMapObject<StateScheme> = {
-    profile: tokenReducer,
+    mainProfile: mainReducer,
+    profileUser: profileReducer,
+    allFranchise: allFranchiseReducer,
+    allFavorites: allFavoritesReducer,
   };
 
   return configureStore({

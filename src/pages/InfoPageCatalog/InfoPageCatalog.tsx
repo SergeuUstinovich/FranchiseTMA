@@ -1,58 +1,101 @@
-import { useState } from "react";
-import img from "../../assets/png/Banner.png";
-import { FavoritesSvg } from "../../assets/svg";
+import { useEffect, useState } from "react";
+import {
+  FavoritesSvg,
+  DocumentSvg,
+  StatisticksSvg,
+  PresentationSvg,
+} from "../../assets/svg";
 import { Button } from "../../ui/Button";
 import style from "./InfoPageCatalog.module.scss";
 import { classNames } from "../../utils/classNames";
 import Descr from "./Descr";
 import BlockLink from "./BlockLink";
-import presentation from '../../assets/svg/Presentation.svg'
-import statisticks from '../../assets/svg/statisticks.svg'
-import document from '../../assets/svg/Document.svg'
-import support from '../../assets/svg/Support.svg'
+import support from "../../assets/svg/support.svg";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllFranchiseSelector } from "../../providers/StoreProvider/selectors/getAllFranchise";
+import { Link, useParams } from "react-router-dom";
+import { AllFranchiseType } from "../../types/AllFranchiseType";
+import { declensionMonths } from "../../helpers/declensionMonth";
+import ImageContainer from "../../utils/ImageContainer";
+import SwiperImg from "../../ui/Swiper/SwiperImg";
+import useMutateAll from "../../utils/useMutateAll";
+import { allFranchiseActions } from "../../providers/StoreProvider/slice/allFranchiseSlice";
+import { queryClient } from "../../api/queryClient";
 
-const obj = {
-  id: "154",
-  img: img,
-  title: "Epic Pizza",
-  descr:
-    "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aperiam ea iste illo quidem tenetur beatae soluta molestias non velit unde iure natus, earum ipsa obcaecati ipsam officiis explicabo autem voluptas praesentium eum nostrum maxime commodi? Porro eveniet mollitia necessitatibus nam magnam voluptatibus et voluptates repudiandae laborum nemo repellat iure, rerum facilis? Minus, illo tenetur explicabo aspernatur labore quae cum similique dolore doloremque voluptas suscipit, magnam aliquam placeat illum alias atque distinctio laborum voluptates ipsam molestias repellendus non inventore. Omnis, voluptatibus maiores perspiciatis ducimus distinctio quis numquam exercitationem suscipit illo vero veritatis, hic ullam debitis ad at recusandae, nemo voluptates iusto.",
-  isActive: false,
-  investments: 2.4,
-  royalties: 6,
-  turnover: 2.4,
-  isFavorites: false,
-  activeLvl: 5,
-  imgArr: ["img1", "img2", "img"],
-  tegArr: ['Поддержка 24/7', 'Обучение сотрудников', 'Рекламные материалы']
-};
+const api_url = import.meta.env.VITE_API_PHOTO_URL;
 
 function InfoPageCatalog() {
   const [isExpanded, setIsExpanded] = useState(false);
+  const allFrancise = useSelector(getAllFranchiseSelector);
+  const [data, setData] = useState<AllFranchiseType>();
+  const [truncatedDescr, setTruncatedDescr] = useState<string>();
+  const { addFavoriteMutate } = useMutateAll();
+  const dispatch = useDispatch();
+  const { id } = useParams();
   const toggleExpansion = () => {
     setIsExpanded(!isExpanded);
   };
-  const truncatedDescr =
-    obj.descr.length > 100 ? obj.descr.substring(0, 120) + "..." : obj.descr;
+
+  useEffect(() => {
+    if (data) {
+      const truncatedDescr =
+        data.description.length > 100
+          ? data.description.substring(0, 120) + "..."
+          : data.description;
+      setTruncatedDescr(truncatedDescr);
+    }
+  }, [data]);
 
   const mods = {
     [style.expand]: isExpanded,
   };
+  useEffect(() => {
+    if (allFrancise) {
+      const obj = allFrancise.find((item) => item.id === Number(id));
+      setData(obj);
+    }
+  }, [allFrancise]);
+
+  const handleFavorites = (id: number) => {
+    addFavoriteMutate.mutate({ id });
+  };
+
+  useEffect(() => {
+    if (addFavoriteMutate.isSuccess) {
+      dispatch(allFranchiseActions.addAllFranchise(addFavoriteMutate.data));
+      queryClient.invalidateQueries({ queryKey: ["favorite"] });
+    }
+  }, [addFavoriteMutate.isSuccess, addFavoriteMutate.isError]);
+
+  if (!data) {
+    return null;
+  }
 
   return (
     <div className={style.box}>
       <div className={style.blockImg}>
-        <img className={style.img} src={obj.img} alt={obj.title} />
-        <Button className={style.favorites}>
-          <FavoritesSvg className={obj.isFavorites ? style.isfavorites : ""} />
+        <ImageContainer
+          className={style.img}
+          classNameBlur={style.blurImage}
+          src={`${api_url}${data.logo_url}`}
+          alt={data.name}
+        />
+        <Button
+          onClick={() => handleFavorites(data.id)}
+          className={style.favorites}
+          isDisabled={addFavoriteMutate.isPending}
+        >
+          <FavoritesSvg className={data.favorite ? style.isfavorites : ""} />
         </Button>
       </div>
       <div className={style.contentBox}>
-        <h2 style={{fontSize: '24px'}} className={style.title}>{obj.title}</h2>
+        <h2 style={{ fontSize: "24px" }} className={style.title}>
+          {data.name}
+        </h2>
         <p className={classNames(style.descr, mods, [])}>
-          {isExpanded ? obj.descr : truncatedDescr}
+          {isExpanded ? data.description : truncatedDescr}
         </p>
-        {obj.descr.length > 100 && (
+        {data.description.length > 100 && (
           <Button onClick={toggleExpansion} className={style.moreDescr}>
             {" "}
             {isExpanded ? "Скрыть" : "Читать полностью"}{" "}
@@ -61,40 +104,60 @@ function InfoPageCatalog() {
       </div>
       <div className={style.contentBox}>
         <h2 className={style.title}>Условия франшизы</h2>
-        <Descr descr="Инвестиции" span="от 5 000 000" />
-        <Descr descr="Паушальный взнос" span="от 5 000 000" />
-        <Descr descr="Роялти" span="4%" />
+        <Descr descr="Инвестиции" span={data.investment} />
+        <Descr descr="Паушальный взнос" span={data.paysh} />
+        <Descr descr="Роялти" span={`${data.royalty}%`} />
+        <Descr descr="Год основания" span={data.year_of_foundation} />
+        <Descr descr="География" span={data.geography} />
       </div>
       <div className={style.contentBox}>
         <h2 className={style.title}>Доходы</h2>
-        <Descr descr="Чистая прибыль" span="300 000 р." />
-        <Descr descr="Окупаемость" span="12 месяцев" />
-        <Descr descr="Расходы в месяц" span="от 50 000 р." />
+        <Descr descr="Чистая прибыль" span={data.profit} />
+        <Descr descr="Окупаемость" span={declensionMonths(data.payback)} />
+        <Descr descr="Расходы в месяц" span={data.expenses_per_month} />
       </div>
       <div className={style.contentBox}>
         <h2 className={style.title}>Пакет услуг</h2>
         <ul className={style.listTeg}>
-            {obj.tegArr.map((item, index) => (
-                <li key={index} className={style.itemTeg}>{item}</li>
-            ))}
+          {data.package_of_services.map((item) => (
+            <li key={item.id} className={style.itemTeg}>
+              {item.name}
+            </li>
+          ))}
         </ul>
       </div>
-      <div className={style.contentBox}>
-        <div className={style.photoBox}>
-            <h2 style={{margin: '0'}} className={style.title}>Фото</h2>
-            <p className={style.allPhoto}>Смотреть все</p>
+      {data.photos && data.photos.length > 0 && (
+        <div className={style.contentBox}>
+          <div className={style.photoBox}>
+            <h2 style={{ margin: "0" }} className={style.title}>
+              Фото
+            </h2>
+            <Button className={style.allPhoto}>
+              <Link to={`/catalog/${data.id}/photo`}>Смотреть все</Link>
+            </Button>
+          </div>
+          <SwiperImg array={data.photos} />
         </div>
-        будут фотки
-      </div>
-      <BlockLink mgBot={8} svg={presentation} title="Презентация продукта" link="" />
-      <BlockLink mgBot={8} svg={statisticks} title="Финансовая модель" link="" />
-      <BlockLink mgBot={8} svg={document} title="Договор" link="" />
+      )}
+      <BlockLink
+        mgBot={8}
+        svg={<PresentationSvg />}
+        title="Презентация продукта"
+        link={data.presentation}
+      />
+      <BlockLink
+        mgBot={8}
+        svg={<StatisticksSvg />}
+        title="Финансовая модель"
+        link={data.model_of_finance}
+      />
+      <BlockLink mgBot={8} svg={<DocumentSvg />} title="Договор" link="" />
       <div className={style.boxBtn}>
-        <Button style={{maxWidth: '48px'}} className={style.btn}>
-            <img src={support} alt="" />
+        <Button style={{ maxWidth: "48px" }} className={style.btn}>
+          <img src={support} alt="" />
         </Button>
-        <Button className={style.btn}>
-            Новая сделка
+        <Button isDisabled={!data.available} className={style.btn}>
+          Новая сделка
         </Button>
       </div>
     </div>

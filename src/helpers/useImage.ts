@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-function useImage (url: string) {
+function useImage(url: string) {
   const [image, setImage] = useState<HTMLImageElement | undefined>(undefined);
 
   useEffect(() => {
@@ -13,7 +13,6 @@ function useImage (url: string) {
       setImage(img);
     };
 
-
     img.addEventListener("load", onLoad);
 
     return () => {
@@ -22,6 +21,6 @@ function useImage (url: string) {
   }, [url]);
 
   return [image];
-};
+}
 
 export default useImage;

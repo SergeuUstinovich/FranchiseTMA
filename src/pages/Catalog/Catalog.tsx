@@ -1,27 +1,15 @@
 import { ListCatalog } from "../../components";
+import { getAllFranchiseSelector } from "../../providers/StoreProvider/selectors/getAllFranchise";
 import style from "./Catalog.module.scss";
-import img from "../../assets/png/Banner.png";
-
-const arr = [
-  {
-    id: "154",
-    img: img,
-    title: "Epic Pizza",
-    descr: "Сеть пиццерий со взрывным продуктом, покорившая уже 15 городов!",
-    isActive: false,
-    investments: 2.4,
-    royalties: 6,
-    turnover: 2.4,
-    isFavorites: false,
-    activeLvl: 5,
-    imgArr: ["img1", "img2", "img"],
-  },
-];
+import { useSelector } from "react-redux";
 
 function Catalog() {
+  const arr = useSelector(getAllFranchiseSelector)
   return (
     <div className={style.box}>
-      <ListCatalog list={arr} />
+      {arr && (
+        <ListCatalog list={arr} />
+      )}
     </div>
   );
 }

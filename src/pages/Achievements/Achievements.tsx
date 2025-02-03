@@ -1,9 +1,5 @@
 function Achievements() {
-    return (
-        <div>
-            Достижения
-        </div>
-    )
+  return <div>Достижения</div>;
 }
 
-export default Achievements
+export default Achievements;

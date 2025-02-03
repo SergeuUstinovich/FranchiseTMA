@@ -23,6 +23,15 @@ const arr = [
     coin: 834,
     dateInvite: '12.12.2024'
   },
+  {
+    id: '3',
+    img: '',
+    firstName: 'Евгений',
+    lastName: 'Рогожин',
+    userName: '@eugen',
+    coin: 834,
+    dateInvite: '12.12.2024'
+  },
 ]
 
 function InviteFriend() {
