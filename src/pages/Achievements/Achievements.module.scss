@@ -1,0 +1,68 @@
+.boxAchiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .title {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 133%;
+    text-align: center;
+    margin-bottom: 12px;
+  }
+
+  .list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    min-width: 345px;
+
+    .item {
+      max-width: 23%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .boxImg {
+        margin-bottom: 8px;
+        position: relative;
+
+        .img {
+          border-radius: 8px;
+        }
+      }
+
+      .descr {
+        font-weight: 500;
+        font-size: 10px;
+        line-height: 140%;
+        text-align: center;
+      }
+    }
+  }
+}
+
+.blockLvl {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .boxLvlOpen {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .svgLock {
+    width: 31px;
+    height: 31px;
+    margin-bottom: 10px;
+  }
+}

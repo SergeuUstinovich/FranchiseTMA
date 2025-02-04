@@ -70,6 +70,8 @@
 }
 
 .boxItem {
+    width: 100%;
+    color: var(--white);
     border-radius: 39px;
     padding: 12px;
     background: var(--gray-primary);
@@ -90,11 +92,16 @@
             width: 40px;
             height: 40px;
             margin-right: 4px;
+
+            .imgPhoto {
+                border-radius: 100px;
+            }
         }
 
         .boxName {
 
             .titleName {
+                text-align: start;
                 font-weight: 400;
                 font-size: 14px;
                 line-height: 143%;

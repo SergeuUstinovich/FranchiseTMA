@@ -4,19 +4,11 @@ import { Button } from "../../ui/Button";
 import style from "./FriendList.module.scss";
 import notFriend from "../../assets/png/notFriend.png";
 import FriendItem from "./FriendItem";
-
-export interface FriendUser {
-  id: string;
-  img: string;
-  firstName: string;
-  lastName: string;
-  userName: string;
-  coin: number;
-  dateInvite: string
-}
+import { AllFriendsType } from "../../types/AllFriends";
+import { queryClient } from "../../api/queryClient";
 
 interface FriendListProps {
-  arr: FriendUser[];
+  arr: AllFriendsType[];
 }
 
 export function FriendList({ arr }: FriendListProps) {
@@ -27,6 +19,7 @@ export function FriendList({ arr }: FriendListProps) {
     const endTime = new Date().getTime() + 10000;
     localStorage.setItem("timerEndTime", endTime.toString());
     setIsActive(true);
+    queryClient.invalidateQueries({queryKey: ["friend"]})
   };
 
   useEffect(() => {
@@ -92,12 +85,12 @@ export function FriendList({ arr }: FriendListProps) {
             <li className={style.item} key={item.id}>
               <FriendItem
                 id={item.id}
-                img={item.img}
-                firstName={item.firstName}
-                lastName={item.lastName}
-                userName={item.userName}
-                coin={item.coin}
-                dateInvite={item.dateInvite}
+                photo_url={item.photo_url}
+                first_name={item.first_name}
+                last_name={item.last_name}
+                username={item.username}
+                income_from_referrals={item.income_from_referrals}
+                first_visit={item.first_visit}
               />
             </li>
           ))}

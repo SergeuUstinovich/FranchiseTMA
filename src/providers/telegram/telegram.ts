@@ -5,8 +5,8 @@ declare global {
 }
 
 export const useTelegram = () => {
-  // const tg = window.Telegram.WebApp;
-  const tg = '';
+  const tg = window.Telegram.WebApp;
+  // const tg = '';
   // const userName = tg?.initDataUnsafe?.user?.username;
   // const tg_id = tg?.initDataUnsafe?.user?.id;
   // const firstName = tg?.initDataUnsafe?.user?.first_name;

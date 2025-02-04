@@ -4,7 +4,8 @@ import { queryClient } from "../api/queryClient";
 import { useSearchParams } from "react-router-dom";
 import { useTelegram } from "../providers/telegram/telegram";
 import { useEffect, useState } from "react";
-import { myFavorite } from "../api/profile";
+import { getAchievement, myFavorite, myFriend } from "../api/profile";
+import { getVideo } from "../api/video";
 
 export function useQueryAll() {
   const [searchParams] = useSearchParams();
@@ -12,7 +13,7 @@ export function useQueryAll() {
   const { hash } = useTelegram();
   const referralUrl = searchParams.get("start");
   const numericId = referralUrl ? referralUrl.replace("id_", "") : null;
-  
+
   const mainPageQuery = useQuery(
     {
       queryKey: ["main"],
@@ -22,11 +23,11 @@ export function useQueryAll() {
     queryClient
   );
   useEffect(() => {
-    if(mainPageQuery.data) {
-        setStartInit(true);
+    if (mainPageQuery.data) {
+      setStartInit(true);
     }
-  }, [mainPageQuery.data])
-  
+  }, [mainPageQuery.data]);
+
   const mainStatsQuery = useQuery(
     {
       queryKey: ["stats"],
@@ -46,13 +47,48 @@ export function useQueryAll() {
   );
 
   const allFavoriteQuery = useQuery(
-      {
-        queryKey: ["favorite"],
-        queryFn: () => myFavorite(),
-        enabled: startInit,
-      },
-      queryClient
-    );
+    {
+      queryKey: ["favorite"],
+      queryFn: () => myFavorite(),
+      enabled: startInit,
+    },
+    queryClient
+  );
 
-  return { mainPageQuery, mainStatsQuery, allFranchiseQuery, allFavoriteQuery };
+  const allFriendQuery = useQuery(
+    {
+      queryKey: ["friend"],
+      queryFn: () => myFriend(),
+      enabled: startInit,
+    },
+    queryClient
+  );
+
+  const allAchievementQuery = useQuery(
+    {
+      queryKey: ["achievement"],
+      queryFn: () => getAchievement(),
+      enabled: startInit,
+    },
+    queryClient
+  );
+
+  const allVideoQuery = useQuery(
+    {
+      queryKey: ["video"],
+      queryFn: () => getVideo(),
+      enabled: startInit,
+    },
+    queryClient
+  );
+
+  return {
+    mainPageQuery,
+    mainStatsQuery,
+    allFranchiseQuery,
+    allFavoriteQuery,
+    allFriendQuery,
+    allAchievementQuery,
+    allVideoQuery,
+  };
 }

@@ -6,6 +6,34 @@ const api_url =
     ? "/api"
     : import.meta.env.VITE_API_BASE_URL;
 
+export function editProfile(
+  name?: string,
+  last_name?: string,
+  city?: string,
+  mobile_phone?: string
+) {
+  return axios
+    .post(`${api_url}/api/edit_profile/`, {
+      name,
+      last_name,
+      city,
+      mobile_phone,
+    })
+    .then(validateResponse)
+    .then((response) => {
+      const data = response.data.data;
+      return data;
+    })
+    .catch((err) => console.log(err));
+}
+
+export function getAchievement() {
+  return axios
+    .get(`${api_url}/api/get_achievement/`)
+    .then(validateResponse)
+    .then((response) => response.data.achieves)
+    .catch((err) => console.log(err));
+}
 
 export function getProfile() {
   return axios
@@ -23,13 +51,18 @@ export function myFavorite() {
     .catch((err) => console.log(err));
 }
 
-export function editProfile(name?: string, last_name?: string, city?: string, mobile_phone?: string) {
+export function myFriend() {
   return axios
-    .post(`${api_url}/api/edit_profile/`, {
-      name,
-      last_name,
-      city,
-      mobile_phone,
+    .get(`${api_url}/api/my_friends/`)
+    .then(validateResponse)
+    .then((response) => response.data.data)
+    .catch((err) => console.log(err));
+}
+
+export function takeRefMoney(referral_id: number) {
+  return axios
+    .post(`${api_url}/api/take_referral_money/`, {
+      referral_id,
     })
     .then(validateResponse)
     .then((response) => {
@@ -37,4 +70,4 @@ export function editProfile(name?: string, last_name?: string, city?: string, mo
       return data;
     })
     .catch((err) => console.log(err));
-};
+}

@@ -10,29 +10,42 @@ import { mainActions } from "../../providers/StoreProvider/slice/mainSlice";
 import { MainStatsType } from "../../types/MainStatsType";
 import { allFranchiseActions } from "../../providers/StoreProvider/slice/allFranchiseSlice";
 import { allFavoritesActions } from "../../providers/StoreProvider/slice/allFavorites";
+import { allFriendsActions } from "../../providers/StoreProvider/slice/allFriendsSlice";
+import { Toaster } from "react-hot-toast";
+import { allAchivmetsActions } from "../../providers/StoreProvider/slice/allAchivmetsSlice";
+import { allVideoActions } from "../../providers/StoreProvider/slice/allVideoSlice";
 
 function Layout() {
   const { tg } = useTelegram();
   const location = useLocation();
-  // const navigate = useNavigate();
-  const { mainPageQuery, mainStatsQuery, allFranchiseQuery, allFavoriteQuery } = useQueryAll();
+  const navigate = useNavigate();
+
+  const {
+    mainPageQuery,
+    mainStatsQuery,
+    allFranchiseQuery,
+    allFavoriteQuery,
+    allFriendQuery,
+    allAchievementQuery,
+    allVideoQuery
+  } = useQueryAll();
   const dispatch = useDispatch();
   const [mainStats, setMainStats] = useState<MainStatsType | undefined>();
 
-  // tg.expand();
-  // tg.disableVerticalSwipes();
-  // tg.setHeaderColor("#000", "#fff");
+  tg.expand();
+  tg.disableVerticalSwipes();
+  tg.setHeaderColor("#000", "#fff");
 
-  // useEffect(() => {
-  //   if (location.pathname === "/") {
-  //     tg.BackButton.hide();
-  //   } else {
-  //     tg.BackButton.show();
-  //     tg.BackButton.onClick(() => {
-  //       navigate(-1);
-  //     });
-  //   }
-  // }, [location.pathname]);
+  useEffect(() => {
+    if (location.pathname === "/") {
+      tg.BackButton.hide();
+    } else {
+      tg.BackButton.show();
+      tg.BackButton.onClick(() => {
+        navigate(-1);
+      });
+    }
+  }, [location.pathname]);
 
   useEffect(() => {
     if (mainPageQuery.data) {
@@ -49,7 +62,9 @@ function Layout() {
 
   useEffect(() => {
     if (allFranchiseQuery.data) {
-      dispatch(allFranchiseActions.addAllFranchise(allFranchiseQuery.data.data))
+      dispatch(
+        allFranchiseActions.addAllFranchise(allFranchiseQuery.data.data)
+      );
     }
   }, [allFranchiseQuery.data]);
 
@@ -59,12 +74,31 @@ function Layout() {
     }
   }, [allFavoriteQuery.data]);
 
+  useEffect(() => {
+    if (allFriendQuery.data) {
+      dispatch(allFriendsActions.addAllFriends(allFriendQuery.data));
+    }
+  }, [allFriendQuery.data]);
+
+  useEffect(() => {
+    if (allAchievementQuery.data) {
+      dispatch(allAchivmetsActions.addAllAchivmets(allAchievementQuery.data))
+    }
+  }, [allAchievementQuery.data]);
+
+  useEffect(() => {
+    if (allVideoQuery.data) {
+      dispatch(allVideoActions.addAllVideo(allVideoQuery.data))
+    }
+  }, [allVideoQuery.data]);
+
   return (
     <div
       className={`${style.app} ${style.container} ${
         !location.pathname.startsWith("/profile") ? style.activeProfile : ""
       }`}
     >
+      <Toaster position="top-center" reverseOrder={false} />
       <header className={style.header}>
         {mainStats && (
           <>

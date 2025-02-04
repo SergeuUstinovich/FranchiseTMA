@@ -4,45 +4,48 @@ import style from "./EducationList.module.scss";
 import doneLesson from "../../assets/svg/doneLesson.svg";
 import playLink from "../../assets/svg/playLink.svg";
 import { LockLvlSvg } from "../../assets/svg";
-
-interface Lesson {
-  name: string;
-  descr: string;
-  id: string;
-  isComplete: boolean;
-  isActive: boolean;
-  link: string;
-}
-interface Course {
-  title: string;
-  id: string;
-  idPerson: string;
-  progressBar: number;
-  listLessons: Lesson[];
-}
+import { AllVideoType } from "../../types/AllVideoType";
+import useMutateAll from "../../utils/useMutateAll";
+import { useEffect, useState } from "react";
+import { useTelegram } from "../../providers/telegram/telegram";
 
 interface EducationListProps {
-  arrs: Course[];
+  arrs: AllVideoType[];
 }
 
 export function EducationList({ arrs }: EducationListProps) {
+  const { countVideoMutate } = useMutateAll();
+  const [link, setLink] = useState<string>();
+  const { tg } = useTelegram();
+
+  const handleLink = (id: number, link: string) => {
+    countVideoMutate.mutate({ id });
+    setLink(link);
+  };
+
+  useEffect(() => {
+    if (countVideoMutate.isSuccess) {
+      tg.openLink(link);
+    }
+  }, [countVideoMutate.isSuccess]);
+
   return (
     <ul className={style.list}>
-      {arrs.map((item) => (
-        <li className={style.item} key={item.id}>
+      {arrs.map((item, index) => (
+        <li className={style.item} key={index}>
           <h2 className={style.title}>{item.title}</h2>
           <ProgressBar
             className={style.progressBar}
-            progress={item.progressBar}
-            children={<p className={style.lvl}>{item.progressBar}%</p>}
+            progress={item.progress_bar}
+            children={<p className={style.lvl}>{Math.round(item.progress_bar * 10) / 10}%</p>}
           />
           <ul className={style.listLesson}>
-            {item.listLessons.map((lessons) => (
+            {item.videos.map((lessons) => (
               <li className={style.itemLesson} key={lessons.id}>
                 <div className={style.boxLesson}>
                   <h3
                     style={
-                      !lessons.isActive
+                      !lessons.is_activate
                         ? {
                             color: "#a5a7a7",
                           }
@@ -51,7 +54,7 @@ export function EducationList({ arrs }: EducationListProps) {
                     className={style.titleLesson}
                   >
                     {lessons.name}{" "}
-                    {lessons.isComplete && (
+                    {lessons.watched && (
                       <span className={style.compliteSpan}>
                         <img src={doneLesson} alt="" />
                       </span>
@@ -59,7 +62,7 @@ export function EducationList({ arrs }: EducationListProps) {
                   </h3>
                   <p
                     style={
-                      !lessons.isActive
+                      !lessons.is_activate
                         ? {
                             color: "#a5a7a7",
                           }
@@ -67,16 +70,17 @@ export function EducationList({ arrs }: EducationListProps) {
                     }
                     className={style.descrLesson}
                   >
-                    {lessons.descr}
+                    {lessons.description}
                   </p>
                 </div>
                 <Button
-                  isDisabled={!lessons.isActive}
+                  onClick={() => handleLink(lessons.id, lessons.link)}
+                  isDisabled={!lessons.is_activate || countVideoMutate.isPending}
                   style={{ backgroundColor: "transparent" }}
                 >
                   <a
                     style={
-                      !lessons.isActive
+                      !lessons.is_activate
                         ? {
                             backgroundColor: "#262628",
                           }
@@ -85,7 +89,7 @@ export function EducationList({ arrs }: EducationListProps) {
                     className={style.btnLesson}
                     href={lessons.link}
                   >
-                    {lessons.isActive ? (
+                    {lessons.is_activate ? (
                       <img src={playLink} alt="" />
                     ) : (
                       <LockLvlSvg className={style.svgLock} />
@@ -95,7 +99,7 @@ export function EducationList({ arrs }: EducationListProps) {
               </li>
             ))}
           </ul>
-          {item.progressBar === 100 && (
+          {item.progress_bar === 100 && (
             <Button className={style.btn}>Собрать награды</Button>
           )}
         </li>
