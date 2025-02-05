@@ -7,6 +7,7 @@ import { allFavoritesReducer } from "../slice/allFavorites";
 import { allFriendsReducer } from "../slice/allFriendsSlice";
 import { allAchivmetsReducer } from "../slice/allAchivmetsSlice";
 import { allVideoReducer } from "../slice/allVideoSlice";
+import { allTasksReducer } from "../slice/allTasksSlice";
 
 export function createReduxStore(initialState?: StateScheme) {
   const rootReducer: ReducersMapObject<StateScheme> = {
@@ -17,6 +18,7 @@ export function createReduxStore(initialState?: StateScheme) {
     allFriends: allFriendsReducer,
     allAchievenets: allAchivmetsReducer,
     allVideo: allVideoReducer,
+    allTasks: allTasksReducer,
   };
 
   return configureStore({

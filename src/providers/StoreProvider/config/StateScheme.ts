@@ -2,6 +2,7 @@ import { AllAchievenetsScheme } from "../../../types/AllAchievenetsType";
 import { AllFavoritesScheme } from "../../../types/AllFavorites";
 import { AllFranchiseScheme } from "../../../types/AllFranchiseType";
 import { AllFriendsScheme } from "../../../types/AllFriends";
+import { AllTasksScheme } from "../../../types/AllTasksType";
 import { AllVideoScheme } from "../../../types/AllVideoType";
 import { MainTypeScheme } from "../../../types/MainType";
 import { ProfileScheme } from "../../../types/ProfileType";
@@ -14,4 +15,5 @@ export interface StateScheme {
   allFriends: AllFriendsScheme;
   allAchievenets: AllAchievenetsScheme;
   allVideo: AllVideoScheme;
+  allTasks: AllTasksScheme;
 }

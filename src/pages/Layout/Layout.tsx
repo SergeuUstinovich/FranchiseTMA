@@ -14,6 +14,7 @@ import { allFriendsActions } from "../../providers/StoreProvider/slice/allFriend
 import { Toaster } from "react-hot-toast";
 import { allAchivmetsActions } from "../../providers/StoreProvider/slice/allAchivmetsSlice";
 import { allVideoActions } from "../../providers/StoreProvider/slice/allVideoSlice";
+import { allTasksActions } from "../../providers/StoreProvider/slice/allTasksSlice";
 
 function Layout() {
   const { tg } = useTelegram();
@@ -27,7 +28,8 @@ function Layout() {
     allFavoriteQuery,
     allFriendQuery,
     allAchievementQuery,
-    allVideoQuery
+    allVideoQuery,
+    allTaskQuery
   } = useQueryAll();
   const dispatch = useDispatch();
   const [mainStats, setMainStats] = useState<MainStatsType | undefined>();
@@ -91,6 +93,12 @@ function Layout() {
       dispatch(allVideoActions.addAllVideo(allVideoQuery.data))
     }
   }, [allVideoQuery.data]);
+
+  useEffect(() => {
+    if (allTaskQuery.data) {
+      dispatch(allTasksActions.addAllTasks(allTaskQuery.data))
+    }
+  }, [allTaskQuery.data]);
 
   return (
     <div

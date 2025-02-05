@@ -24,7 +24,6 @@ export interface ProfileTypeStataProps {
   completed_lessons: number;
   count_of_selling_franchise: number;
   count_of_registration: number;
-  count_of_group_offers: number;
 }
 
 export interface ProfileScheme {

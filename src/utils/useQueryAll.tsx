@@ -6,18 +6,18 @@ import { useTelegram } from "../providers/telegram/telegram";
 import { useEffect, useState } from "react";
 import { getAchievement, myFavorite, myFriend } from "../api/profile";
 import { getVideo } from "../api/video";
+import { getTask } from "../api/tasks";
 
 export function useQueryAll() {
   const [searchParams] = useSearchParams();
   const [startInit, setStartInit] = useState(false);
   const { hash } = useTelegram();
-  const referralUrl = searchParams.get("start");
-  const numericId = referralUrl ? referralUrl.replace("id_", "") : null;
+  const referralUrl = searchParams.get("id");
 
   const mainPageQuery = useQuery(
     {
       queryKey: ["main"],
-      queryFn: () => mainPage(hash, Number(numericId)),
+      queryFn: () => mainPage(hash, Number(referralUrl)),
       enabled: !!hash,
     },
     queryClient
@@ -82,6 +82,15 @@ export function useQueryAll() {
     queryClient
   );
 
+  const allTaskQuery = useQuery(
+    {
+      queryKey: ["task"],
+      queryFn: () => getTask(),
+      enabled: startInit,
+    },
+    queryClient
+  );
+
   return {
     mainPageQuery,
     mainStatsQuery,
@@ -90,5 +99,6 @@ export function useQueryAll() {
     allFriendQuery,
     allAchievementQuery,
     allVideoQuery,
+    allTaskQuery
   };
 }

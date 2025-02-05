@@ -17,9 +17,6 @@ export function StatisticsUser() {
         <p className={style.descr}>
           Количество регистраций: <span className={style.span}>{stata?.count_of_registration}</span>
         </p>
-        <p className={style.descr}>
-          Количество сделок группы: <span className={style.span}>{stata?.count_of_group_offers}</span>
-        </p>
       </div>
     </div>
   );

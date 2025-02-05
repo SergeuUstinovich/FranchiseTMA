@@ -1,0 +1,75 @@
+.boxBonus {
+  padding-bottom: 15px;
+  .imgTitle {
+    margin-bottom: 20px;
+  }
+
+  .descr {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 133%;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+
+  .boxInfo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 36px;
+
+    .bonus {
+      display: flex;
+      align-items: center;
+      border-radius: 16px;
+      padding: 4px 8px;
+      background: var(--blue-secondary);
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 133%;
+      text-align: center;
+      color: var(--blue-primary);
+
+      .imgCoin {
+        margin-right: 4px;
+      }
+    }
+  }
+  .btn {
+    width: 100%;
+    background: var(--blue-primary);
+    border-radius: 16px;
+    padding: 11px 12px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 114%;
+    color: var(--white);
+  }
+
+  .btnBox {
+    display: flex;
+    gap: 8px;
+    .btnCheck {
+      width: 50%;
+      border: 1px solid var(--blue-primary);
+      border-radius: 16px;
+      padding: 11px 12px;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 114%;
+      color: var(--blue-primary);
+      background-color: transparent;
+    }
+
+    .btnLink {
+      width: 50%;
+      background: var(--blue-primary);
+      border-radius: 16px;
+      padding: 11px 12px;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 114%;
+      color: var(--white);
+    }
+  }
+}

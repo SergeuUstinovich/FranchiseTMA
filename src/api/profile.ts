@@ -19,18 +19,16 @@ export function editProfile(
       city,
       mobile_phone,
     })
-    .then(validateResponse)
     .then((response) => {
       const data = response.data.data;
       return data;
     })
-    .catch((err) => console.log(err));
+    .catch(validateResponse);
 }
 
 export function getAchievement() {
   return axios
     .get(`${api_url}/api/get_achievement/`)
-    .then(validateResponse)
     .then((response) => response.data.achieves)
     .catch((err) => console.log(err));
 }
@@ -38,7 +36,6 @@ export function getAchievement() {
 export function getProfile() {
   return axios
     .get(`${api_url}/api/get_profile/`)
-    .then(validateResponse)
     .then((response) => response.data)
     .catch((err) => console.log(err));
 }
@@ -46,7 +43,6 @@ export function getProfile() {
 export function myFavorite() {
   return axios
     .get(`${api_url}/api/my_favorite_franchise/`)
-    .then(validateResponse)
     .then((response) => response.data.data)
     .catch((err) => console.log(err));
 }
@@ -54,7 +50,6 @@ export function myFavorite() {
 export function myFriend() {
   return axios
     .get(`${api_url}/api/my_friends/`)
-    .then(validateResponse)
     .then((response) => response.data.data)
     .catch((err) => console.log(err));
 }
@@ -64,10 +59,9 @@ export function takeRefMoney(referral_id: number) {
     .post(`${api_url}/api/take_referral_money/`, {
       referral_id,
     })
-    .then(validateResponse)
     .then((response) => {
       const data = response.data.data;
       return data;
     })
-    .catch((err) => console.log(err));
+    .catch(validateResponse);
 }

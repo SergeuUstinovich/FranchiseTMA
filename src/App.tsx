@@ -18,6 +18,8 @@ const InfoPageCatalog = lazy(
 const Education = lazy(() => import("./pages/Education/Education"));
 const QrCodeUser = lazy(() => import("./pages/QrCodeUser/QrCodeUser"));
 const PhotoListItem = lazy(() => import("./components/PhotoListItem/PhotoListItem"));
+const Tasks = lazy(() => import("./pages/Tasks/Tasks"));
+
 
 function App() {
   return (
@@ -28,7 +30,7 @@ function App() {
             <Route index element={<Catalog />} />
             <Route path={"game"} element={<TestGame />} />
             <Route path={"education"} element={<Education />} />
-            <Route path={"tasks"} element={<Catalog />} />
+            <Route path={"tasks"} element={<Tasks />} />
             <Route path={"profile"} element={<Profile />} />
             <Route path={"profile-edit"} element={<EditingProfile />} />
             <Route path={"profile-featured"} element={<Features />} />

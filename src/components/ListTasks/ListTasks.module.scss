@@ -1,0 +1,76 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  .item {
+    .title {
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 140%;
+      margin-bottom: 16px;
+    }
+
+    .listTask {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      .itemTask {
+        background: var(--gray-primary);
+        border-radius: 16px;
+        padding: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .boxItem {
+          display: flex;
+          .img {
+            border-radius: 8px;
+            width: 44px;
+            height: 44px;
+            margin-right: 8px;
+          }
+
+          .infoItem {
+            .titleTask {
+              font-weight: 400;
+              font-size: 16px;
+              line-height: 137%;
+              margin-bottom: 3px;
+            }
+
+            .coinBox {
+              display: flex;
+              align-items: center;
+              gap: 5px;
+              .coin {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: var(--blue-secondary);
+                padding: 2px 4px;
+                border-radius: 8px;
+                font-weight: 500;
+                font-size: 12px;
+                line-height: 133%;
+                .imgCoin {
+                  margin-right: 5px;
+                  width: 16px;
+                  height: 16px;
+                }
+
+                .span {
+                  padding-top: 3px;
+                }
+              }
+            }
+          }
+        }
+
+        .svg {
+            width: 24;
+            height: 24px;
+        }
+      }
+    }
+  }
+}
