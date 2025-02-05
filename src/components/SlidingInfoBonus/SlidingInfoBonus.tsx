@@ -79,6 +79,9 @@ export function SlidingInfoBonus({
       case typeTasks.usual:
         checkTaskMutate.mutate({ id });
         break;
+        default: 
+        checkTaskMutate.mutate({ id });
+        break;
     }
   };
 

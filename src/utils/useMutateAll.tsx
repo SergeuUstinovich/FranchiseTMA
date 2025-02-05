@@ -84,9 +84,6 @@ function useMutateAll() {
         queryClient.invalidateQueries({ queryKey: ["stats"] });
         queryClient.invalidateQueries({ queryKey: ["video"] });
       },
-      onError: (err) => {
-        toast.error(err.message);
-      },
     },
     queryClient
   );
@@ -97,9 +94,6 @@ function useMutateAll() {
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ["task"] });
       },
-      onError: (err) => {
-        toast.error(err.message);
-      },
     },
     queryClient
   );
@@ -108,7 +102,9 @@ function useMutateAll() {
     {
       mutationFn: (data: { id: number }) => checkTasks(data.id),
       onSuccess: () => {
+        toast.success("Бонус получен");
         queryClient.invalidateQueries({ queryKey: ["task"] });
+        queryClient.invalidateQueries({ queryKey: ["stats"] });
       },
     },
     queryClient
@@ -118,7 +114,9 @@ function useMutateAll() {
     {
       mutationFn: (data: { id: number }) => checkTasksTg(data.id),
       onSuccess: () => {
+        toast.success("Бонус получен");
         queryClient.invalidateQueries({ queryKey: ["task"] });
+        queryClient.invalidateQueries({ queryKey: ["stats"] });
       },
     },
     queryClient

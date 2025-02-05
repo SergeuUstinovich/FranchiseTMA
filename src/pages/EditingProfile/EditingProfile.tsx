@@ -74,7 +74,7 @@ function EditingProfile() {
             />
           </FormField>
         </div>
-        <Button className={style.btn} type="submit">
+        <Button isLoading={editProfileMutate.isPending} className={style.btn} type="submit">
           Сохранить
         </Button>
       </form>
