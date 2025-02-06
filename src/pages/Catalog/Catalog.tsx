@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { DailyBonus, ListCatalog } from "../../components";
+import { DailyBonus, FilterList, ListCatalog } from "../../components";
 import { getAllFranchiseSelector } from "../../providers/StoreProvider/selectors/getAllFranchise";
 import SlidingPanel from "../../ui/SlidingPanel/SlidingPanel";
 import style from "./Catalog.module.scss";
@@ -8,15 +8,37 @@ import {
   getMainBonuses,
   getMainUser,
 } from "../../providers/StoreProvider/selectors/getMain";
+import { Button } from "../../ui/Button";
+import { CloseSvg, FilterSvg } from "../../assets/svg";
+import { categoryArr, summArr } from "./dataFilterCategory";
+
+export interface ArrFilter {
+  id: number;
+  name: string;
+  summ: number;
+  isActive: boolean;
+}
 
 function Catalog() {
   const arr = useSelector(getAllFranchiseSelector);
   const mainInfo = useSelector(getMainUser);
   const bonus = useSelector(getMainBonuses);
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenFilter, setIsOpenFilter] = useState(false);
+  const [arrFilter, setArrFilter] = useState<ArrFilter[]>([]);
+  const [categoryArrays, setCategoryArrays] = useState(categoryArr);
+  const [summArrays, setSummArrays] = useState(summArr);
 
   const handleClose = () => {
     setIsOpen(false);
+  };
+
+  const handleOpenFilter = () => {
+    setIsOpenFilter(true);
+  };
+
+  const handleCloseFilter = () => {
+    setIsOpenFilter(false);
   };
 
   useEffect(() => {
@@ -25,8 +47,58 @@ function Catalog() {
     }
   }, [mainInfo]);
 
+  useEffect(() => {
+    const newArrFilter = [...categoryArrays, ...summArrays].filter(
+      (item) => item.isActive
+    );
+
+    setArrFilter(newArrFilter);
+  }, [categoryArrays, summArrays]);
+
+  const handleRemoveItem = (id: number) => {
+    setCategoryArrays((prevCategoryArrays) =>
+      prevCategoryArrays.map((item) =>
+        item.id === id ? { ...item, isActive: false } : item
+      )
+    );
+
+    setSummArrays((prevSummArrays) =>
+      prevSummArrays.map((item) =>
+        item.id === id ? { ...item, isActive: false } : item
+      )
+    );
+
+    setArrFilter((prevArrFilter) =>
+      prevArrFilter.filter((item) => item.id !== id)
+    );
+  };
+
   return (
     <>
+      <div className={style.boxFilter}>
+        <div
+          style={arrFilter.length > 0 ? { marginBottom: "8px" } : {}}
+          className={style.titleBox}
+        >
+          <h2 className={style.title}>Каталог франшиз</h2>
+          <Button onClick={handleOpenFilter} className={style.btn}>
+            <FilterSvg />
+          </Button>
+        </div>
+        <ul className={style.list}>
+          {arrFilter.map((item) => (
+            <li className={style.item} key={item.id}>
+              <p className={style.descr}>{item.name}</p>
+              <Button
+                onClick={() => handleRemoveItem(item.id)}
+                className={style.btn}
+              >
+                <CloseSvg />
+              </Button>
+            </li>
+          ))}
+        </ul>
+      </div>
       <div className={style.box}>{arr && <ListCatalog list={arr} />}</div>
       <SlidingPanel
         darkened
@@ -44,6 +116,22 @@ function Catalog() {
         ) : (
           <div>loading...</div>
         )}
+      </SlidingPanel>
+      <SlidingPanel
+        darkened
+        isOpen={isOpenFilter}
+        initialHeight="70%"
+        fullHeight="70%"
+        onClose={handleCloseFilter}
+        className={style.slideFilter}
+      >
+        <FilterList
+          onClose={handleCloseFilter}
+          categoryArr={categoryArrays}
+          summArr={summArrays}
+          setCategoryArrays={setCategoryArrays}
+          setSummArrays={setSummArrays}
+        />
       </SlidingPanel>
     </>
   );

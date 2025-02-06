@@ -27,6 +27,9 @@ function useMutateAll() {
         mobile_phone: string;
       }) =>
         editProfile(data.name, data.last_name, data.city, data.mobile_phone),
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["stats"] });
+      }
     },
     queryClient
   );

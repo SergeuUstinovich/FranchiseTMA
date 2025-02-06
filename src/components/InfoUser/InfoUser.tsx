@@ -25,7 +25,7 @@ export function InfoUser() {
       )}
       <div className={style.boxBar}>
         <ProgressBar
-          progress={30}
+          progress={0}
           children={<p className={style.lvl}>{profile?.lvl} Уровень</p>}
         />
       </div>

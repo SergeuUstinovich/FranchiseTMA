@@ -1,0 +1,72 @@
+.boxFilter {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+
+  .title {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 133%;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .switcher {
+    display: flex;
+    background: var(--blue-secondary);
+    border-radius: 16px;
+    margin-bottom: 20px;
+  }
+
+  .listFilter {
+    margin-bottom: 20px;
+
+    .itemFilter {
+      padding: 9px 16px;
+
+      .itemBtn {
+        width: 100%;
+        background-color: transparent;
+        color: var(--white);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .descrFilter {
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 137%;
+        }
+
+        .checkFilter {
+          width: 20px;
+          height: 20px;
+          border: 2px solid var(--white);
+          background-color: transparent;
+          border-radius: 2px;
+        }
+
+        .isCheck {
+          background-color: var(--blue-primary);
+          border: 2px solid var(--blue-primary);
+        }
+      }
+    }
+  }
+
+  .boxBtn {
+    padding-bottom: 15px;
+    .btn {
+      width: 100%;
+      background: var(--blue-primary);
+      border-radius: 16px;
+      padding: 11px;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 114%;
+      color: var(--white);
+      margin-bottom: 15px;
+    }
+  }
+}

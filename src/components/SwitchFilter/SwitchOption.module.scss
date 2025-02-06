@@ -1,0 +1,19 @@
+.switch_option {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 114%;
+    border: none;
+    background-color: transparent;
+    padding: 8px;
+    color: #858585;
+    outline: none;
+    cursor: pointer;
+    border-radius: 16px;
+    width: 100%;
+
+    &[data-active='true'] {
+      background: var(--blue-primary);
+      
+      color: var(--white);
+    }
+}

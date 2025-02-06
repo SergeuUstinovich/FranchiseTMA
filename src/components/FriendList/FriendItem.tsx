@@ -27,7 +27,7 @@ function FriendItem(props: AllFriendsType) {
   return (
     <Button
       isDisabled={takeMoneyRefMutate.isPending}
-      onClick={income_from_referrals == 0 ? handleTakeMoney : () => {}}
+      onClick={income_from_referrals > 0 ? handleTakeMoney : () => {}}
       className={style.boxItem}
     >
       <div className={style.infoFriend}>

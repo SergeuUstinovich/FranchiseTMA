@@ -1,3 +1,59 @@
 .box {
-    width: 100%;
+  width: 100%;
+}
+
+.boxFilter {
+  background: var(--gray-primary);
+  border-radius: 16px;
+  padding: 12px;
+  margin-bottom: 16px;
+  position: sticky;
+  left: 0;
+  top: 0;
+  z-index: 2;
+
+  .titleBox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .title {
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 133%;
+    }
+
+    .btn {
+      background-color: transparent;
+    }
+  }
+
+  .list {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+
+    .item {
+      display: flex;
+      align-items: center;
+      border-radius: 24px;
+      padding: 4px 8px;
+      background: var(--gray-secondary);
+
+      .descr {
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 133%;
+        margin-right: 2px;
+      }
+
+      .btn {
+        background-color: transparent;
+      }
+    }
+  }
+}
+
+.slideFilter {
+    color: white;
 }

@@ -87,6 +87,7 @@ export function useQueryAll() {
       queryKey: ["task"],
       queryFn: () => getTask(),
       enabled: startInit,
+      // refetchInterval: 180000,
     },
     queryClient
   );
