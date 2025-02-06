@@ -1,4 +1,5 @@
 import axios from "axios";
+import { validateResponse } from "./validateResponse";
 
 axios.defaults.withCredentials = true;
 
@@ -6,7 +7,6 @@ const api_url =
   import.meta.env.MODE === "development"
     ? "/api"
     : import.meta.env.VITE_API_BASE_URL;
-
 
 export function mainPage(initData: string, refferal?: number) {
   return axios
@@ -37,11 +37,21 @@ export function getAllFranchise() {
 export function addFavorites(franchise_id: number) {
   return axios
     .post(`${api_url}/api/add_or_delete_favorite_franchise/`, {
-      franchise_id
+      franchise_id,
     })
     .then((response) => {
       const data = response.data.data;
       return data;
     })
     .catch((err) => console.log(err));
-};
+}
+
+export function dailyBonus() {
+  return axios
+    .post(`${api_url}/api/take_daly_bonus/`)
+    .then((response) => {
+      const data = response.data;
+      return data;
+    })
+    .catch(validateResponse);
+}

@@ -7,8 +7,6 @@ import { formatDate } from "../../helpers/formatDate";
 import useMutateAll from "../../utils/useMutateAll";
 import { Button } from "../../ui/Button";
 
-const api_url = import.meta.env.VITE_API_PHOTO_URL;
-
 function FriendItem(props: AllFriendsType) {
   const {
     first_name,
@@ -37,7 +35,7 @@ function FriendItem(props: AllFriendsType) {
           {photo_url ? (
             <img
               className={style.imgPhoto}
-              src={`${api_url}${photo_url}`}
+              src={photo_url}
               alt=""
             />
           ) : (

@@ -1,0 +1,77 @@
+.dailyBox {
+  width: 100%;
+  padding-bottom: 15px;
+
+  .img {
+    margin-bottom: 20px;
+  }
+
+  .title {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 133%;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+
+  .descr {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 143%;
+    text-align: center;
+    color: var(--gray-tretiary);
+    margin-bottom: 20px;
+  }
+
+  .boxSwiper {
+    margin-bottom: 36px;
+    width: 100%;
+
+    .swiper {
+      .slide {
+        .boxSlide {
+          background: var(--gray-primary);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding: 8px 0;
+          padding-bottom: 0;
+          border-radius: 16px;
+
+          .imgSlide {
+            margin-bottom: 4px;
+          }
+
+          .slideDescr {
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 133%;
+          }
+
+          .slideDay {
+            background-color: var(--gray-secondary);
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 133%;
+            text-align: center;
+            width: 100%;
+            padding: 4px 0;
+            border-radius: 0 0 16px 16px;
+          }
+        }
+      }
+    }
+  }
+
+  .btn {
+    width: 100%;
+    background: var(--blue-primary);
+    border-radius: 16px;
+    padding: 11px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 114%;
+    color: var(--white);
+  }
+}

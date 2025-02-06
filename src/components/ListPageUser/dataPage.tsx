@@ -4,7 +4,7 @@ export const dataPage = [
   {
     id: "1",
     svg: <FriendSvg />,
-    title: "Приглосить друзей",
+    title: "Приглaсить друзей",
     path: "/profile-friends",
   },
   {

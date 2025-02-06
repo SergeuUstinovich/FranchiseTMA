@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "../api/queryClient";
-import { addFavorites } from "../api/main";
+import { addFavorites, dailyBonus } from "../api/main";
 import { editProfile, takeRefMoney } from "../api/profile";
 import {
   changeCurseStatus,
@@ -121,6 +121,21 @@ function useMutateAll() {
     },
     queryClient
   );
+
+  const dailyBonusMutate = useMutation(
+    {
+      mutationFn: () => dailyBonus(),
+      onSuccess: () => {
+        toast.success("Бонус получен");
+        queryClient.invalidateQueries({ queryKey: ["main"] });
+        queryClient.invalidateQueries({ queryKey: ["stats"] });
+      },
+      onError: () => {
+        toast.error("Упс что то пошло не так попробуйте перезагрузить приложение");
+      }
+    },
+    queryClient
+  );
   return {
     addFavoriteMutate,
     editProfileMutate,
@@ -131,7 +146,8 @@ function useMutateAll() {
     takeBonusVideoMutate,
     changeTaskMutate,
     checkTaskMutate,
-    checkTaskTgMutate
+    checkTaskTgMutate,
+    dailyBonusMutate
   };
 }
 

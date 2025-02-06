@@ -9,7 +9,7 @@ interface SlidingPanelProps {
   fullHeight: string;
   children: ReactNode;
   isOpen: boolean;
-  onClose: () => void;
+  onClose?: () => void;
   darkened?: boolean;
   className?: string;
   lazy?: boolean;
@@ -100,6 +100,7 @@ function SlidingPanel(props: SlidingPanelProps) {
 
   const handleOverlayClick = (e: React.MouseEvent) => {
     if (darkened && e.target === panelRef.current) {
+      if(onClose)
       onClose();
     }
   };

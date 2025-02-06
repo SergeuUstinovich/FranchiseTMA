@@ -1,89 +1,85 @@
 .boxList {
+  .infoBoxFriend {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
 
-    .infoBoxFriend {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 16px;
-
-        .valueFriend {
-            font-weight: 700;
-            font-size: 18px;
-            line-height: 133%;
-            color: var(--gray-text-secondary);
-        }
-
-        .refetchBox {
-            display: flex;
-            align-items: center;
-
-            .timerBox {
-                font-weight: 500;
-                font-size: 10px;
-                line-height: 140%;
-                margin-right: 2px;
-                color: var(--gray-text-secondary);
-            }
-
-            .btnRefetch {
-                background-color: transparent;
-            }
-        }
+    .valueFriend {
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 133%;
+      color: var(--gray-text-secondary);
     }
 
-    .boxNotFriend {
-        border-radius: 16px;
-        padding: 12px;
-        background: var(--gray-primary);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+    .refetchBox {
+      display: flex;
+      align-items: center;
 
-        .imgNotFriend {
-            margin-bottom: 8px;
-        }
+      .timerBox {
+        font-weight: 500;
+        font-size: 10px;
+        line-height: 140%;
+        margin-right: 2px;
+        color: var(--gray-text-secondary);
+      }
 
-        .titleNotFriend {
-            font-weight: 700;
-            font-size: 18px;
-            line-height: 133%;
-            margin-bottom: 8px;
-        }
-
-        .descrNotFriend {
-            font-weight: 400;
-            font-size: 14px;
-            line-height: 143%;
-            text-align: center;
-            color: var(--gray-tretiary);
-        }
+      .btnRefetch {
+        background-color: transparent;
+      }
     }
+  }
 
-    .list {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-
-        .item {
-            width: 100%;
-        }
-    }
-}
-
-.boxItem {
-    width: 100%;
-    color: var(--white);
-    border-radius: 39px;
+  .boxNotFriend {
+    border-radius: 16px;
     padding: 12px;
     background: var(--gray-primary);
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
 
-    .infoFriend {
+    .imgNotFriend {
+      margin-bottom: 8px;
+    }
+
+    .titleNotFriend {
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 133%;
+      margin-bottom: 8px;
+    }
+
+    .descrNotFriend {
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 143%;
+      text-align: center;
+      color: var(--gray-tretiary);
+    }
+  }
+
+  .list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .item {
+      width: 100%;
+
+      .boxItem {
+        width: 100%;
+        color: var(--white);
+        border-radius: 39px;
+        padding: 12px;
+        background: var(--gray-primary);
         display: flex;
         align-items: center;
+        justify-content: space-between;
 
-        .svgBox {
+        .infoFriend {
+          display: flex;
+          align-items: center;
+
+          .svgBox {
             border-radius: 100px;
             background: var(--gray-secondary);
             display: flex;
@@ -94,42 +90,44 @@
             margin-right: 4px;
 
             .imgPhoto {
-                border-radius: 100px;
+              border-radius: 100px;
             }
-        }
+          }
 
-        .boxName {
-
+          .boxName {
             .titleName {
-                text-align: start;
-                font-weight: 400;
-                font-size: 14px;
-                line-height: 143%;
+              text-align: start;
+              font-weight: 400;
+              font-size: 14px;
+              line-height: 143%;
             }
 
             .descrDateInvite {
-                font-weight: 500;
-                font-size: 10px;
-                line-height: 140%;
-                color: var(--gray-text-secondary);
+              font-weight: 500;
+              font-size: 10px;
+              line-height: 140%;
+              color: var(--gray-text-secondary);
             }
+          }
         }
-    }
 
-    .coinFriend {
-        display: flex;
+        .coinFriend {
+          display: flex;
 
-        .imgCoinFriend {
+          .imgCoinFriend {
             width: 14px;
             height: 14px;
             margin-right: 4px;
-        }
+          }
 
-        .descrCoinFriend {
+          .descrCoinFriend {
             font-weight: 500;
             font-size: 12px;
             line-height: 133%;
             color: var(--gray-tretiary);
+          }
         }
+      }
     }
+  }
 }
