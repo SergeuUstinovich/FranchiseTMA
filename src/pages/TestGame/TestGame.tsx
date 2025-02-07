@@ -2,6 +2,8 @@ import { useState, useRef, useEffect } from "react";
 import { Stage, Layer, Image, Rect, Circle } from "react-konva";
 import useImage from "../../helpers/useImage";
 import imgs from "../../assets/png/image 10.png";
+import style from './TestGame.module.scss'
+import imgBlock from '../../assets/svg/imgBlock.svg'
 
 function TestGame() {
   const [image] = useImage(imgs);
@@ -96,7 +98,12 @@ function TestGame() {
         overflow: "hidden",
         position: "relative",
       }}
+      className={style.box}
     >
+      <div className={style.blockBox}>
+        <img className={style.img} src={imgBlock} alt="" />
+        <p className={style.descr}>В разработке</p>
+      </div>
       <Stage
         width={containerSize.width}
         height={containerSize.height}
