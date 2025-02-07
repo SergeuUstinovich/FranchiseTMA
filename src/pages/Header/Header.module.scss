@@ -65,3 +65,52 @@
     }
   }
 }
+
+.skeletonBox {
+  height: 44px;
+  width: 100%;
+  padding: 0 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .skeletonInfoUser {
+    display: flex;
+    align-items: center;
+
+    .skeletonAvatar {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(90deg, #a5a7a7 0%, #404141 100%);
+      border-radius: 100%;
+      margin-right: 8px;
+    }
+
+    .skeletonName {
+      height: 15px;
+      width: 140px;
+      border-radius: 8px;
+      background: linear-gradient(90deg, #a5a7a7 0%, #404141 100%);
+      margin-bottom: 5px;
+    }
+
+    .skeletonLvl {
+      height: 15px;
+      width: 100px;
+      border-radius: 8px;
+      background: linear-gradient(90deg, #a5a7a7 0%, #404141 100%);
+    }
+  }
+
+  .skeletonBoxCoin {
+    display: flex;
+    gap: 4px;
+
+    .skeletonCoin {
+      height: 24px;
+      width: 53px;
+      border-radius: 8px;
+      background: linear-gradient(90deg, #a5a7a7 0%, #404141 100%);
+    }
+  }
+}

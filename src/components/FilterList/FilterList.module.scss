@@ -45,11 +45,15 @@
           border: 2px solid var(--white);
           background-color: transparent;
           border-radius: 2px;
+          transition: all 0.3s ease-in-out;
         }
 
         .isCheck {
           background-color: var(--blue-primary);
           border: 2px solid var(--blue-primary);
+          background-image: url("../../assets/svg/doneFilter.svg");
+          background-repeat: no-repeat;
+          background-size: cover;
         }
       }
     }

@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { allFranchiseActions } from "../../providers/StoreProvider/slice/allFranchiseSlice";
 import { queryClient } from "../../api/queryClient";
+import ImageContainer from "../../utils/ImageContainer";
 
 interface ListCatalogProps {
   list: AllFranchiseType[];
@@ -26,7 +27,7 @@ export function ListCatalog({ list }: ListCatalogProps) {
   useEffect(() => {
     if (addFavoriteMutate.isSuccess) {
       dispatch(allFranchiseActions.addAllFranchise(addFavoriteMutate.data));
-      queryClient.invalidateQueries({queryKey: ["favorite"]})
+      queryClient.invalidateQueries({ queryKey: ["favorite"] });
     }
   }, [addFavoriteMutate.isSuccess, addFavoriteMutate.isError]);
 
@@ -35,7 +36,8 @@ export function ListCatalog({ list }: ListCatalogProps) {
       {list.map((item) => (
         <li className={style.item} key={item.id}>
           <div className={style.boxImg}>
-            <img
+            <ImageContainer
+              heightBlur={169}
               className={style.img}
               src={`${api_url}${item.logo_url}`}
               alt={item.name}

@@ -8,6 +8,7 @@ import { getAllFriends } from "../../providers/StoreProvider/selectors/getAllFri
 import { getProfileUser } from "../../providers/StoreProvider/selectors/getProfile";
 import { useTelegram } from "../../providers/telegram/telegram";
 import toast from 'react-hot-toast';
+import { LoaderContent } from "../../ui/Loader/LoaderContent";
 
 function InviteFriend() {
   const friends = useSelector(getAllFriends);
@@ -49,7 +50,7 @@ function InviteFriend() {
           <QrIconSvg />
         </Link>
       </div>
-      {friends ? <FriendList arr={friends} /> : <div>loading...</div>}
+      {friends ? <FriendList arr={friends} /> : <LoaderContent />}
     </div>
   );
 }

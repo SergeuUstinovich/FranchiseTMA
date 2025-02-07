@@ -15,6 +15,7 @@ import { Toaster } from "react-hot-toast";
 import { allAchivmetsActions } from "../../providers/StoreProvider/slice/allAchivmetsSlice";
 import { allVideoActions } from "../../providers/StoreProvider/slice/allVideoSlice";
 import { allTasksActions } from "../../providers/StoreProvider/slice/allTasksSlice";
+import SkeletonHeader from "../Header/SkeletonHeader";
 
 function Layout() {
   const { tg } = useTelegram();
@@ -29,7 +30,7 @@ function Layout() {
     allFriendQuery,
     allAchievementQuery,
     allVideoQuery,
-    allTaskQuery
+    allTaskQuery,
   } = useQueryAll();
   const dispatch = useDispatch();
   const [mainStats, setMainStats] = useState<MainStatsType | undefined>();
@@ -84,39 +85,56 @@ function Layout() {
 
   useEffect(() => {
     if (allAchievementQuery.data) {
-      dispatch(allAchivmetsActions.addAllAchivmets(allAchievementQuery.data))
+      dispatch(allAchivmetsActions.addAllAchivmets(allAchievementQuery.data));
     }
   }, [allAchievementQuery.data]);
 
   useEffect(() => {
     if (allVideoQuery.data) {
-      dispatch(allVideoActions.addAllVideo(allVideoQuery.data))
+      dispatch(allVideoActions.addAllVideo(allVideoQuery.data));
     }
   }, [allVideoQuery.data]);
 
   useEffect(() => {
     if (allTaskQuery.data) {
-      dispatch(allTasksActions.addAllTasks(allTaskQuery.data))
+      dispatch(allTasksActions.addAllTasks(allTaskQuery.data));
     }
   }, [allTaskQuery.data]);
 
   return (
     <div
+      style={
+        location.pathname.startsWith("/game")
+          ? {
+              paddingRight: "0px",
+              paddingLeft: "0px",
+            }
+          : {}
+      }
       className={`${style.app} ${style.container} ${
         !location.pathname.startsWith("/profile") ? style.activeProfile : ""
       }`}
     >
       <Toaster position="top-center" reverseOrder={false} />
       <header className={style.header}>
-        {mainStats && (
+        {mainStats ? (
           <>
             {!location.pathname.startsWith("/profile") && (
               <Header stats={mainStats} />
             )}
           </>
+        ) : (
+          <>{!location.pathname.startsWith("/profile") && <SkeletonHeader />}</>
         )}
       </header>
       <main
+        style={
+          location.pathname.startsWith("/game")
+            ? {
+                paddingBottom: "90px",
+              }
+            : {}
+        }
         className={`${style.main} ${
           !location.pathname.startsWith("/profile-edit") ? style.activeEdit : ""
         }`}

@@ -1,0 +1,35 @@
+.box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 65vh;
+  }
+  
+  .loader {
+    width: 120px;
+    height: 120px;
+    border: 10px solid rgba(255, 255, 255, 0.2);
+    border-bottom-color: var(--blue-primary);
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+    margin-bottom: 20px;
+  }
+  
+  .descr {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 32px;
+  }
+  
+  @keyframes rotation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  

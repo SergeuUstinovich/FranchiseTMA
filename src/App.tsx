@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import "./styles/global/App.scss";
 import { Route, Routes } from "react-router-dom";
+import { LoaderPage } from "./ui/Loader/LoaderPage";
 
 const Layout = lazy(() => import("./pages/Layout/Layout"));
 const TestGame = lazy(() => import("./pages/TestGame/TestGame"));
@@ -19,12 +20,13 @@ const Education = lazy(() => import("./pages/Education/Education"));
 const QrCodeUser = lazy(() => import("./pages/QrCodeUser/QrCodeUser"));
 const PhotoListItem = lazy(() => import("./components/PhotoListItem/PhotoListItem"));
 const Tasks = lazy(() => import("./pages/Tasks/Tasks"));
+const NotPage = lazy(() => import("./components/NotPage/NotPage"));
 
 
 function App() {
   return (
     <>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<LoaderPage />}>
         <Routes>
           <Route path={"/"} element={<Layout />}>
             <Route index element={<Catalog />} />
@@ -39,6 +41,7 @@ function App() {
             <Route path={"profile-edit-qr"} element={<QrCodeUser />} />
             <Route path={"catalog/:id"} element={<InfoPageCatalog />} />
             <Route path={"catalog/:id/photo"} element={<PhotoListItem />} />
+            <Route path={"*"} element={<NotPage />} />
           </Route>
         </Routes>
       </Suspense>

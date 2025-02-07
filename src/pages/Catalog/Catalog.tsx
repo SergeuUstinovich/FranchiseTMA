@@ -11,6 +11,8 @@ import {
 import { Button } from "../../ui/Button";
 import { CloseSvg, FilterSvg } from "../../assets/svg";
 import { categoryArr, summArr } from "./dataFilterCategory";
+import { AllFranchiseType } from "../../types/AllFranchiseType";
+import { LoaderContent } from "../../ui/Loader/LoaderContent";
 
 export interface ArrFilter {
   id: number;
@@ -28,6 +30,9 @@ function Catalog() {
   const [arrFilter, setArrFilter] = useState<ArrFilter[]>([]);
   const [categoryArrays, setCategoryArrays] = useState(categoryArr);
   const [summArrays, setSummArrays] = useState(summArr);
+  const [filteredFranchiseArr, setFilteredFranchiseArr] = useState<
+    AllFranchiseType[] | undefined
+  >();
 
   const handleClose = () => {
     setIsOpen(false);
@@ -73,6 +78,21 @@ function Catalog() {
     );
   };
 
+  useEffect(() => {
+    const newFilteredFranchiseArr = arr?.filter((franchise) => {
+      return franchise.category.some((category) =>
+        arrFilter.some(
+          (filterItem) =>
+            (filterItem.isActive && filterItem.name === category.name) ||
+            filterItem.summ >= category.summ
+        )
+      );
+    });
+    newFilteredFranchiseArr?.length === 0
+      ? setFilteredFranchiseArr(arr)
+      : setFilteredFranchiseArr(newFilteredFranchiseArr);
+  }, [arr, arrFilter]);
+
   return (
     <>
       <div className={style.boxFilter}>
@@ -99,7 +119,13 @@ function Catalog() {
           ))}
         </ul>
       </div>
-      <div className={style.box}>{arr && <ListCatalog list={arr} />}</div>
+      <div className={style.box}>
+        {filteredFranchiseArr ? (
+          <ListCatalog list={filteredFranchiseArr} />
+        ) : (
+          <LoaderContent />
+        )}
+      </div>
       <SlidingPanel
         darkened
         isOpen={isOpen}

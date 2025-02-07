@@ -91,8 +91,8 @@ function TestGame() {
     <div
       ref={containerRef}
       style={{
-        width: "400px",
-        height: "500px",
+        width: '100%',
+        height: '100%',
         overflow: "hidden",
         position: "relative",
       }}
@@ -112,7 +112,7 @@ function TestGame() {
       >
         <Layer>
           <Image image={image} />
-          {markers.map(
+          {/* {markers.map(
             (marker, index) =>
               !isHouseAtMarker(marker) && (
                 <Circle
@@ -124,8 +124,8 @@ function TestGame() {
                   onClick={() => handleMarkerClick(marker)}
                 />
               )
-          )}
-          {houses.map((house, index) => (
+          )} */}
+          {/* {houses.map((house, index) => (
             <Rect
               key={index}
               x={house.x}
@@ -134,7 +134,7 @@ function TestGame() {
               height={50}
               fill="red"
             />
-          ))}
+          ))} */}
         </Layer>
       </Stage>
     </div>

@@ -5,28 +5,53 @@ import { displayName } from "../../helpers/truncateText";
 import style from "./InfoUser.module.scss";
 import { useSelector } from "react-redux";
 import { getProfileUser } from "../../providers/StoreProvider/selectors/getProfile";
+import ImageContainer from "../../utils/ImageContainer";
+import { LoaderButton } from "../../ui/Loader/LoaderButton";
 
 export function InfoUser() {
-  const profile = useSelector(getProfileUser)
+  const profile = useSelector(getProfileUser);
 
   return (
     <div className={style.box}>
       <div className={style.svgBox}>
         {profile?.photo_url ? (
-          <img className={style.imgProfile} src={profile?.photo_url} alt="" />
+          <ImageContainer
+            heightBlur={80}
+            widthBlur={80}
+            className={style.imgProfile}
+            src={profile?.photo_url}
+          />
         ) : (
           <ProfileNavSvg className={style.svgProfile} />
         )}
       </div>
-      {profile && (
+      {profile ? (
         <h2 className={style.title}>
-        {displayName(30, profile.tg_first_name, profile.tg_last_name, profile.tg_username)}
-      </h2>
+          {displayName(
+            30,
+            profile.tg_first_name,
+            profile.tg_last_name,
+            profile.tg_username
+          )}
+        </h2>
+      ) : (
+        <h2 className={style.title}>
+          <LoaderButton className={style.loaderName} />
+        </h2>
       )}
       <div className={style.boxBar}>
         <ProgressBar
           progress={0}
-          children={<p className={style.lvl}>{profile?.lvl} Уровень</p>}
+          children={
+            <p className={style.lvl}>
+              {profile ? (
+                profile.lvl
+              ) : (
+                <LoaderButton className={style.loaderBtn} />
+              )}{" "}
+              Уровень
+            </p>
+          }
         />
       </div>
       {(profile?.city || profile?.mobile_phone) && (
@@ -38,13 +63,14 @@ export function InfoUser() {
           )}
           {profile.mobile_phone && (
             <p className={style.descr}>
-              Телефон: <span className={style.span}>{profile.mobile_phone}</span>
+              Телефон:{" "}
+              <span className={style.span}>{profile.mobile_phone}</span>
             </p>
           )}
         </div>
       )}
-      <Link className={style.svgEditing} to={'/profile-edit'}>
-       <EditingProfileSvg  />
+      <Link className={style.svgEditing} to={"/profile-edit"}>
+        <EditingProfileSvg />
       </Link>
     </div>
   );

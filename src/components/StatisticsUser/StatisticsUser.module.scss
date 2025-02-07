@@ -26,6 +26,14 @@
       font-size: 12px;
       line-height: 133%;
       color: var(--gray-tretiary);
+      display: flex;
+      align-items: center;
+
+      .loader {
+        margin-left: 5px;
+        width: 15px;
+        height: 15px;
+      }
 
       .span {
         margin-left: 3px;
@@ -34,3 +42,5 @@
     }
   }
 }
+
+

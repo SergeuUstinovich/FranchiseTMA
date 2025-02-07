@@ -6,6 +6,7 @@ import style from "./ListTasks.module.scss";
 import SlidingPanel from "../../ui/SlidingPanel/SlidingPanel";
 import { useState } from "react";
 import { SlidingInfoBonus } from "../SlidingInfoBonus/SlidingInfoBonus";
+import ImageContainer from "../../utils/ImageContainer";
 
 const api_url = import.meta.env.VITE_API_PHOTO_URL;
 
@@ -49,11 +50,7 @@ export function ListTasks({ arr }: ListTasksProps) {
                   className={style.itemTask}
                 >
                   <div className={style.boxItem}>
-                    <img
-                      className={style.img}
-                      src={`${api_url}${tasks.image}`}
-                      alt=""
-                    />
+                    <ImageContainer heightBlur={44} widthBlur={44} className={style.img} src={`${api_url}${tasks.image}`} />
                     <div className={style.infoItem}>
                       <h3 className={style.titleTask}>{tasks.text}</h3>
                       <div className={style.coinBox}>

@@ -25,7 +25,7 @@ export const categoryArr = [
     },
     {
         id: 5,
-        name: 'Автопизнес',
+        name: 'Автобизнес',
         summ: 0,
         isActive: false
     },
@@ -82,7 +82,7 @@ export const summArr = [
     },
     {
         id: 14,
-        name: 'более 3 000 000 ₽',
+        name: 'до 3 000 000 ₽',
         summ: 3000000,
         isActive: false
     },
