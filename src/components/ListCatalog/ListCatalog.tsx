@@ -19,10 +19,10 @@ const api_url = import.meta.env.VITE_API_PHOTO_URL;
 export function ListCatalog({ list }: ListCatalogProps) {
   const { addFavoriteMutate } = useMutateAll();
   const dispatch = useDispatch();
-
   const handleFavorites = (id: number) => {
     addFavoriteMutate.mutate({ id });
   };
+
 
   useEffect(() => {
     if (addFavoriteMutate.isSuccess) {
@@ -37,10 +37,11 @@ export function ListCatalog({ list }: ListCatalogProps) {
         <li className={style.item} key={item.id}>
           <div className={style.boxImg}>
             <ImageContainer
-              heightBlur={169}
               className={style.img}
+              classNameBlur={style.blur}
               src={`${api_url}${item.logo_url}`}
               alt={item.name}
+              x1x16={false}
             />
             {!item.available && (
               <div className={style.blockLvl}>
@@ -54,7 +55,10 @@ export function ListCatalog({ list }: ListCatalogProps) {
             )}
           </div>
           <h2 className={style.title}>{item.name}</h2>
-          <p className={style.descr}>{item.description}</p>
+          <div className={style.descr} dangerouslySetInnerHTML={{ __html: item.description.length > 100
+              ? item.description.substring(0, 140) + "..."
+              : item.description }}>
+          </div>
           <div className={style.boxNumber}>
             <p className={style.numberDescr}>
               Инвестиции: <span className={style.span}>{item.investment}</span>

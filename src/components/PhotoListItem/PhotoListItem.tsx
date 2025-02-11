@@ -27,7 +27,7 @@ function PhotoListItem() {
           {data?.photos.map((item, index) => (
             <li className={style.item} key={index}>
               <ImageContainer
-                heightBlur={169}
+                x1x16
                 className={style.img}
                 src={`${api_url}${item}`}
               />

@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllFranchiseSelector } from "../../providers/StoreProvider/selectors/getAllFranchise";
 import { Link, useParams } from "react-router-dom";
 import { AllFranchiseType } from "../../types/AllFranchiseType";
-import { declensionMonths } from "../../helpers/declensionMonth";
+import { declensionDays, declensionMonths } from "../../helpers/declensionMonth";
 import ImageContainer from "../../utils/ImageContainer";
 import SwiperImg from "../../ui/Swiper/SwiperImg";
 import useMutateAll from "../../utils/useMutateAll";
@@ -28,7 +28,7 @@ function InfoPageCatalog() {
   const [isExpanded, setIsExpanded] = useState(false);
   const allFrancise = useSelector(getAllFranchiseSelector);
   const [data, setData] = useState<AllFranchiseType>();
-  const [truncatedDescr, setTruncatedDescr] = useState<string>();
+  const [truncatedDescr, setTruncatedDescr] = useState<string>('');
   const { addFavoriteMutate } = useMutateAll();
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -76,9 +76,9 @@ function InfoPageCatalog() {
       <div className={style.blockImg}>
         <ImageContainer
           className={style.img}
-          classNameBlur={style.blurImage}
           src={`${api_url}${data.logo_url}`}
           alt={data.name}
+          x1x16={false}
         />
         <Button
           onClick={() => handleFavorites(data.id)}
@@ -92,9 +92,7 @@ function InfoPageCatalog() {
         <h2 style={{ fontSize: "24px" }} className={style.title}>
           {data.name}
         </h2>
-        <p className={classNames(style.descr, mods, [])}>
-          {isExpanded ? data.description : truncatedDescr}
-        </p>
+        <div className={classNames(style.descr, mods, [])} dangerouslySetInnerHTML={{ __html: isExpanded ? data.description : truncatedDescr}} />
         {data.description.length > 100 && (
           <Button onClick={toggleExpansion} className={style.moreDescr}>
             {" "}
@@ -114,7 +112,7 @@ function InfoPageCatalog() {
         <h2 className={style.title}>Доходы</h2>
         <Descr descr="Чистая прибыль" span={data.profit} />
         <Descr descr="Окупаемость" span={declensionMonths(data.payback)} />
-        <Descr descr="Расходы в месяц" span={data.expenses_per_month} />
+        <Descr descr="Запуск" span={` ${data.start_day} ${declensionDays(data.start_day)}`} />
       </div>
       <div className={style.contentBox}>
         <h2 className={style.title}>Пакет услуг</h2>
@@ -151,7 +149,7 @@ function InfoPageCatalog() {
         title="Финансовая модель"
         link={data.model_of_finance}
       />
-      <BlockLink mgBot={8} svg={<DocumentSvg />} title="Договор" link="" />
+      <BlockLink mgBot={8} svg={<DocumentSvg />} title="Договор" link={data.dogovor} />
       <div className={style.boxBtn}>
         <Button style={{ maxWidth: "48px" }} className={style.btn}>
           <img src={support} alt="" />

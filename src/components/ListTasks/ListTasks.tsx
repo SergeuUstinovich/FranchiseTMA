@@ -50,7 +50,7 @@ export function ListTasks({ arr }: ListTasksProps) {
                   className={style.itemTask}
                 >
                   <div className={style.boxItem}>
-                    <ImageContainer heightBlur={44} widthBlur={44} className={style.img} src={`${api_url}${tasks.image}`} />
+                    <ImageContainer x1x16 className={style.img} src={`${api_url}${tasks.image}`} />
                     <div className={style.infoItem}>
                       <h3 className={style.titleTask}>{tasks.text}</h3>
                       <div className={style.coinBox}>

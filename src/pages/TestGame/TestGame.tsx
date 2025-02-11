@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Stage, Layer, Image, Rect, Circle } from "react-konva";
 import useImage from "../../helpers/useImage";
-import imgs from "../../assets/png/image 10.png";
+import imgs from "../../assets/png/image 11.png";
 import style from './TestGame.module.scss'
 import imgBlock from '../../assets/svg/imgBlock.svg'
 

@@ -11,11 +11,12 @@ export interface AllFranchiseType {
   geography: string;
   profit: string;
   payback: number;
-  expenses_per_month: string;
+  start_day: number;
   presentation: string;
   model_of_finance: string;
   favorite: boolean;
   available: boolean;
+  dogovor: string;
   photos: string[];
   category: AllFranchiseCategoryType[];
   package_of_services: AllFranchiseServicesType[];

@@ -129,8 +129,8 @@ function Catalog() {
       <SlidingPanel
         darkened
         isOpen={isOpen}
-        initialHeight="70%"
-        fullHeight="70%"
+        initialHeight="84%"
+        fullHeight="84%"
         onClose={handleClose}
       >
         {bonus && mainInfo ? (
@@ -140,7 +140,7 @@ function Catalog() {
             currentDay={mainInfo.count_of_visit_day}
           />
         ) : (
-          <div>loading...</div>
+          <LoaderContent />
         )}
       </SlidingPanel>
       <SlidingPanel

@@ -25,8 +25,7 @@ function Achievements() {
             <li className={style.item} key={item.id}>
               <div className={style.boxImg}>
                 <ImageContainer
-                  widthBlur={81}
-                  heightBlur={81}
+                  x1x16={true}
                   className={style.img}
                   src={`${api_url}${item.image.picture_url}`}
                 />

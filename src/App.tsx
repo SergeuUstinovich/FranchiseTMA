@@ -36,7 +36,7 @@ function App() {
           <Routes>
             <Route
               path={"/"}
-              element={!isMobile ? <Layout /> : <InitMobileErr />}
+              element={isMobile ? <Layout /> : <InitMobileErr />}
             >
               <Route index element={<Catalog />} />
               <Route path={"game"} element={<TestGame />} />

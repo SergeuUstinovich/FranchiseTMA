@@ -7,6 +7,7 @@ interface ImageContainer {
   classNameBlur?: string;
   widthBlur?: number;
   heightBlur?: number;
+  x1x16: boolean;
 }
 
 function ImageContainer({
@@ -14,8 +15,7 @@ function ImageContainer({
   alt,
   className,
   classNameBlur,
-  widthBlur,
-  heightBlur,
+  x1x16
 }: ImageContainer) {
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
@@ -37,9 +37,10 @@ function ImageContainer({
           <div
             className={classNameBlur}
             style={{
-              width: `${widthBlur}px`,
-              height: `${heightBlur}px`,
+              width: `100%`,
+              height: `0`,
               borderRadius: "10px",
+              paddingBottom: `${x1x16 ? '100%' : '56.25%'}`,
               backgroundColor: "grey",
             }}
           />
