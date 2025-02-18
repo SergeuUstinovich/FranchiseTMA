@@ -25,7 +25,7 @@ export function useQueryAll() {
   useEffect(() => {
     if (mainPageQuery.data) {
       setStartInit(true);
-    }
+    } 
   }, [mainPageQuery.data]);
 
   const mainStatsQuery = useQuery(

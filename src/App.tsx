@@ -6,6 +6,7 @@ import { isMobile } from "react-device-detect";
 import { useTelegram } from "./providers/telegram/telegram";
 import InitMobileErr from "./components/InitMobileErr/InitMobileErr";
 
+
 const Layout = lazy(() => import("./pages/Layout/Layout"));
 const TestGame = lazy(() => import("./pages/TestGame/TestGame"));
 const Catalog = lazy(() => import("./pages/Catalog/Catalog"));

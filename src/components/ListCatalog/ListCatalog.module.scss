@@ -16,9 +16,12 @@
       margin-bottom: 4px;
       position: relative;
       aspect-ratio: 16/9;
+      width: 100%;
 
       .img {
         aspect-ratio: 16/9;
+        width: 100%;
+        border-radius: 16px;
       }
 
       .blockLvl {

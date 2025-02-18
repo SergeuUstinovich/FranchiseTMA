@@ -15,12 +15,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllFranchiseSelector } from "../../providers/StoreProvider/selectors/getAllFranchise";
 import { Link, useParams } from "react-router-dom";
 import { AllFranchiseType } from "../../types/AllFranchiseType";
-import { declensionDays, declensionMonths } from "../../helpers/declensionMonth";
+import {
+  // declensionDays,
+  declensionMonths,
+} from "../../helpers/declensionMonth";
 import ImageContainer from "../../utils/ImageContainer";
 import SwiperImg from "../../ui/Swiper/SwiperImg";
 import useMutateAll from "../../utils/useMutateAll";
 import { allFranchiseActions } from "../../providers/StoreProvider/slice/allFranchiseSlice";
 import { queryClient } from "../../api/queryClient";
+import { useTelegram } from "../../providers/telegram/telegram";
 
 const api_url = import.meta.env.VITE_API_PHOTO_URL;
 
@@ -28,13 +32,23 @@ function InfoPageCatalog() {
   const [isExpanded, setIsExpanded] = useState(false);
   const allFrancise = useSelector(getAllFranchiseSelector);
   const [data, setData] = useState<AllFranchiseType>();
-  const [truncatedDescr, setTruncatedDescr] = useState<string>('');
-  const { addFavoriteMutate } = useMutateAll();
+  const [truncatedDescr, setTruncatedDescr] = useState<string>("");
+  const { addFavoriteMutate, crmBonusMutate } = useMutateAll();
   const dispatch = useDispatch();
   const { id } = useParams();
+  const {tg} = useTelegram()
+
   const toggleExpansion = () => {
     setIsExpanded(!isExpanded);
   };
+
+  const handleCrm = (id: number) => {
+    crmBonusMutate.mutate({ id });
+  };
+
+  const handleLinkFBS = (link: string) => {
+    tg.openLink(link)
+  }
 
   useEffect(() => {
     if (data) {
@@ -92,7 +106,12 @@ function InfoPageCatalog() {
         <h2 style={{ fontSize: "24px" }} className={style.title}>
           {data.name}
         </h2>
-        <div className={classNames(style.descr, mods, [])} dangerouslySetInnerHTML={{ __html: isExpanded ? data.description : truncatedDescr}} />
+        <div
+          className={classNames(style.descr, mods, [])}
+          dangerouslySetInnerHTML={{
+            __html: isExpanded ? data.description : truncatedDescr,
+          }}
+        />
         {data.description.length > 100 && (
           <Button onClick={toggleExpansion} className={style.moreDescr}>
             {" "}
@@ -112,18 +131,25 @@ function InfoPageCatalog() {
         <h2 className={style.title}>Доходы</h2>
         <Descr descr="Чистая прибыль" span={data.profit} />
         <Descr descr="Окупаемость" span={declensionMonths(data.payback)} />
-        <Descr descr="Запуск" span={` ${data.start_day} ${declensionDays(data.start_day)}`} />
+        <Descr
+          onClick={() => handleLinkFBS(data.url_franchise)}
+          isLink
+          descr="Сайт франшизы"
+          span={data.url_franchise.replace(/^https?:\/\//, '').replace(/\/$/, '')}
+        />
       </div>
-      <div className={style.contentBox}>
-        <h2 className={style.title}>Пакет услуг</h2>
-        <ul className={style.listTeg}>
-          {data.package_of_services.map((item) => (
-            <li key={item.id} className={style.itemTeg}>
-              {item.name}
-            </li>
-          ))}
-        </ul>
-      </div>
+      {data.package_of_services && data.package_of_services.length > 0 && (
+        <div className={style.contentBox}>
+          <h2 className={style.title}>Пакет услуг</h2>
+          <ul className={style.listTeg}>
+            {data.package_of_services.map((item) => (
+              <li key={item.id} className={style.itemTeg}>
+                {item.name}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
       {data.photos && data.photos.length > 0 && (
         <div className={style.contentBox}>
           <div className={style.photoBox}>
@@ -149,12 +175,22 @@ function InfoPageCatalog() {
         title="Финансовая модель"
         link={data.model_of_finance}
       />
-      <BlockLink mgBot={8} svg={<DocumentSvg />} title="Договор" link={data.dogovor} />
+      <BlockLink
+        mgBot={8}
+        svg={<DocumentSvg />}
+        title="Договор"
+        link={data.dogovor}
+      />
       <div className={style.boxBtn}>
         <Button style={{ maxWidth: "48px" }} className={style.btn}>
           <img src={support} alt="" />
         </Button>
-        <Button isDisabled={!data.available} className={style.btn}>
+        <Button
+          isLoading={crmBonusMutate.isPending}
+          onClick={() => handleCrm(data.id)}
+          isDisabled={!data.available}
+          className={style.btn}
+        >
           Новая сделка
         </Button>
       </div>

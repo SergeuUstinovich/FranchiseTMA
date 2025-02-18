@@ -11,7 +11,7 @@ export interface AllFranchiseType {
   geography: string;
   profit: string;
   payback: number;
-  start_day: number;
+  url_franchise: string;
   presentation: string;
   model_of_finance: string;
   favorite: boolean;

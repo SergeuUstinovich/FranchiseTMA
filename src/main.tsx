@@ -6,6 +6,7 @@ import StoreProviders from "./providers/StoreProvider/StoreProviders.tsx";
 import { BrowserRouter } from "react-router-dom";
 import ErrorBoundaryWithNavigate from "./pages/ErrorBoundary/ErrorBoundary.tsx";
 
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <StoreProviders>

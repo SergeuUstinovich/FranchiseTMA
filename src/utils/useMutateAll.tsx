@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "../api/queryClient";
-import { addFavorites, dailyBonus } from "../api/main";
+import { addFavorites, crmPoint, dailyBonus } from "../api/main";
 import { editProfile, takeRefMoney } from "../api/profile";
 import {
   changeCurseStatus,
@@ -139,6 +139,18 @@ function useMutateAll() {
     },
     queryClient
   );
+  const crmBonusMutate = useMutation(
+    {
+      mutationFn: (data: {id: number}) => crmPoint(data.id),
+      onSuccess: () => {
+        toast.success("Заявка отправлена!");
+      },
+      onError: () => {
+        toast.error("Ошибка попробуйте связаться с поддержкой");
+      }
+    },
+    queryClient
+  );
   return {
     addFavoriteMutate,
     editProfileMutate,
@@ -150,7 +162,8 @@ function useMutateAll() {
     changeTaskMutate,
     checkTaskMutate,
     checkTaskTgMutate,
-    dailyBonusMutate
+    dailyBonusMutate,
+    crmBonusMutate
   };
 }
 

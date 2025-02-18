@@ -17,7 +17,7 @@ export function mainPage(initData: string, refferal?: number) {
       },
     })
     .then((response) => response.data)
-    .catch((err) => console.log(err));
+    .catch(validateResponse);
 }
 
 export function mainStats() {
@@ -49,6 +49,18 @@ export function addFavorites(franchise_id: number) {
 export function dailyBonus() {
   return axios
     .post(`${api_url}/api/take_daly_bonus/`)
+    .then((response) => {
+      const data = response.data;
+      return data;
+    })
+    .catch(validateResponse);
+}
+
+export function crmPoint(franchise_id: number) {
+  return axios
+    .post(`${api_url}/api/crm_point/`, {
+      franchise_id
+    })
     .then((response) => {
       const data = response.data;
       return data;
