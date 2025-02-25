@@ -3,6 +3,7 @@ export interface MainTypeProps {
   tg_last_name: string;
   tg_username: string;
   lvl: number;
+  exp: number;
   photo_url: string;
   silver_coin: number;
   gold_coin: number;

@@ -3,7 +3,8 @@ import { Stage, Layer, Image, Rect, Circle } from "react-konva";
 import useImage from "../../helpers/useImage";
 import imgs from "../../assets/png/image 10.png";
 import style from './TestGame.module.scss'
-import imgBlock from '../../assets/svg/imgBlock.svg'
+// import imgBlock from '../../assets/svg/imgBlock.svg'
+import bannerImg from '../../assets/png/gameBanner.png'
 
 function TestGame() {
   const [image] = useImage(imgs);
@@ -101,8 +102,8 @@ function TestGame() {
       className={style.box}
     >
       <div className={style.blockBox}>
-        <img className={style.img} src={imgBlock} alt="" />
-        <p className={style.descr}>В разработке</p>
+        <img className={style.img} src={bannerImg} alt="" />
+        {/* <p className={style.descr}>В разработке</p> */}
       </div>
       <Stage
         width={containerSize.width}
@@ -118,7 +119,7 @@ function TestGame() {
         style={{ cursor: "grab" }}
       >
         <Layer>
-          <Image cornerRadius={20} opacity={0.3} image={image} />
+          {/* <Image cornerRadius={20} opacity={0.3} image={image} /> */}
           {/* {markers.map(
             (marker, index) =>
               !isHouseAtMarker(marker) && (

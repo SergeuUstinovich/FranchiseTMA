@@ -131,7 +131,7 @@ function Layout() {
         style={
           location.pathname.startsWith("/game")
             ? {
-                paddingBottom: "90px",
+                paddingBottom: "0px",
               }
             : {}
         }

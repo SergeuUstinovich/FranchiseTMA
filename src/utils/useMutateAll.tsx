@@ -109,6 +109,9 @@ function useMutateAll() {
         queryClient.invalidateQueries({ queryKey: ["task"] });
         queryClient.invalidateQueries({ queryKey: ["stats"] });
       },
+      onError: (err) => {
+        toast.error(err.message)
+      }
     },
     queryClient
   );
@@ -121,6 +124,9 @@ function useMutateAll() {
         queryClient.invalidateQueries({ queryKey: ["task"] });
         queryClient.invalidateQueries({ queryKey: ["stats"] });
       },
+      onError: (err) => {
+        toast.error(err.message)
+      }
     },
     queryClient
   );

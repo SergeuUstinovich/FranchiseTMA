@@ -18,6 +18,7 @@ export interface ProfileTypeProps {
   url_created_qr_code: string;
   income_from_referrals: number;
   referrer: number;
+  exp: number;
 }
 
 export interface ProfileTypeStataProps {

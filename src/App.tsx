@@ -27,6 +27,7 @@ const PhotoListItem = lazy(
 );
 const Tasks = lazy(() => import("./pages/Tasks/Tasks"));
 const NotPage = lazy(() => import("./components/NotPage/NotPage"));
+const PhotoIndex = lazy(() => import("./components/PhotoListItem/PhotoIndex"));
 
 function App() {
   const { hash } = useTelegram();
@@ -51,6 +52,7 @@ function App() {
               <Route path={"profile-edit-qr"} element={<QrCodeUser />} />
               <Route path={"catalog/:id"} element={<InfoPageCatalog />} />
               <Route path={"catalog/:id/photo"} element={<PhotoListItem />} />
+              <Route path={"catalog/:id/photo/:index"} element={<PhotoIndex />} />
               <Route path={"*"} element={<NotPage />} />
             </Route>
           </Routes>

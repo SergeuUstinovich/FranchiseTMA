@@ -129,8 +129,8 @@ function Catalog() {
       <SlidingPanel
         darkened
         isOpen={isOpen}
-        initialHeight="84%"
-        fullHeight="84%"
+        initialHeight="70%"
+        fullHeight="70%"
         onClose={handleClose}
       >
         {bonus && mainInfo ? (

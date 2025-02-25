@@ -20,6 +20,7 @@ export function InfoUser() {
             widthBlur={80}
             className={style.imgProfile}
             src={profile?.photo_url}
+            x1x16
           />
         ) : (
           <ProfileNavSvg className={style.svgProfile} />
@@ -40,19 +41,21 @@ export function InfoUser() {
         </h2>
       )}
       <div className={style.boxBar}>
-        <ProgressBar
-          progress={0}
-          children={
-            <p className={style.lvl}>
-              {profile ? (
-                profile.lvl
-              ) : (
-                <LoaderButton className={style.loaderBtn} />
-              )}{" "}
-              Уровень
-            </p>
-          }
-        />
+        {profile && (
+          <ProgressBar
+            progress={profile.exp}
+            children={
+              <p className={style.lvl}>
+                {profile ? (
+                  profile.lvl
+                ) : (
+                  <LoaderButton className={style.loaderBtn} />
+                )}{" "}
+                Уровень
+              </p>
+            }
+          />
+        )}
       </div>
       {(profile?.city || profile?.mobile_phone) && (
         <div className={style.infoData}>

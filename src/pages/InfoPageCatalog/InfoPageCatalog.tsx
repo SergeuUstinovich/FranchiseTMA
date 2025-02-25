@@ -188,7 +188,7 @@ function InfoPageCatalog() {
         <Button
           isLoading={crmBonusMutate.isPending}
           onClick={() => handleCrm(data.id)}
-          isDisabled={!data.available}
+          isDisabled={!data.available || crmBonusMutate.isPending}
           className={style.btn}
         >
           Новая сделка

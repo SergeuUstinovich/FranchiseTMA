@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { getAllFranchiseSelector } from "../../providers/StoreProvider/selectors/getAllFranchise";
 import { useEffect, useState } from "react";
 import { AllFranchiseType } from "../../types/AllFranchiseType";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import ImageContainer from "../../utils/ImageContainer";
 import style from "./PhotoListItem.module.scss";
 import ModalRoute from "../../ui/ModalRoute/ModalRoute";
@@ -26,11 +26,14 @@ function PhotoListItem() {
         <ul className={style.list}>
           {data?.photos.map((item, index) => (
             <li className={style.item} key={index}>
+              <Link to={`/catalog/${id}/photo/${index}`}>
               <ImageContainer
                 x1x16
                 className={style.img}
                 src={`${api_url}${item}`}
               />
+              </Link>
+              
             </li>
           ))}
         </ul>
