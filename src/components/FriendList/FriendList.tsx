@@ -89,7 +89,8 @@ export function FriendList({ arr }: FriendListProps) {
                 first_name={item.first_name}
                 last_name={item.last_name}
                 username={item.username}
-                income_from_referrals={item.income_from_referrals}
+                income_from_referrals_silver={item.income_from_referrals_silver}
+                income_from_referrals_gold={item.income_from_referrals_gold}
                 first_visit={item.first_visit}
               />
             </li>

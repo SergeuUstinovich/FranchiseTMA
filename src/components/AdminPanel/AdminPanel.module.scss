@@ -1,0 +1,104 @@
+.boxAdmin {
+  display: flex;
+  flex-direction: column;
+
+  .title {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .form {
+    height: 96%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .boxInput {
+      border-radius: 16px;
+      padding: 12px;
+      background: var(--gray-primary);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 20px;
+
+      .boxCoin {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        .label {
+          width: 100%;
+        }
+
+        .hidden {
+          span {
+            color: var(--gray-primary);
+          }
+        }
+      }
+
+      .boxRadio {
+        width: 100%;
+        display: flex;
+        background: var(--gray-secondary);
+        padding: 4px;
+        border-radius: 25px;
+
+        .boxValut {
+          display: flex;
+          align-items: center;
+          width: 100%;
+
+          input {
+            opacity: 0;
+            position: absolute;
+          }
+
+          .svg.activeSvg {
+            background-image: url('../../assets/svg/checkRadio.svg');
+            background-repeat: no-repeat;
+            background-position: 4px;
+          }
+
+          .svg.activeSvg path {
+            stroke: var(--blue-primary);
+          }
+
+          .boxName {
+            display: flex;
+            align-items: center;
+            width: 100%;
+
+            .img {
+              margin-right: 4px;
+            }
+
+            .descrCoin {
+              font-weight: 400;
+              font-size: 14px;
+              line-height: 143%;
+            }
+          }
+
+          .radio {
+            display: block;
+          }
+        }
+      }
+      .active {
+        background: var(--blue-secondary);
+      }
+    }
+    .btn {
+      background: var(--blue-primary);
+      border-radius: 16px;
+      padding: 11px 12px;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 114%;
+      color: var(--text);
+      width: 100%;
+    }
+  }
+}

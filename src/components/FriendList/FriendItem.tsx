@@ -1,7 +1,8 @@
 import { ProfileNavSvg } from "../../assets/svg";
 import { displayName } from "../../helpers/truncateText";
 import style from "./FriendList.module.scss";
-import imgCoin from "../../assets/png/silverCoin.png";
+import imgCoinSilver from "../../assets/png/silverCoin.png";
+import imgCoinGold from "../../assets/png/goldCoin.png"
 import { AllFriendsType } from "../../types/AllFriends";
 import { formatDate } from "../../helpers/formatDate";
 import useMutateAll from "../../utils/useMutateAll";
@@ -12,7 +13,8 @@ function FriendItem(props: AllFriendsType) {
     first_name,
     last_name,
     photo_url,
-    income_from_referrals,
+    income_from_referrals_silver,
+    income_from_referrals_gold,
     username,
     first_visit,
     id,
@@ -27,17 +29,13 @@ function FriendItem(props: AllFriendsType) {
   return (
     <Button
       isDisabled={takeMoneyRefMutate.isPending}
-      onClick={income_from_referrals > 0 ? handleTakeMoney : () => {}}
+      onClick={income_from_referrals_silver || income_from_referrals_gold > 0 ? handleTakeMoney : () => {}}
       className={style.boxItem}
     >
       <div className={style.infoFriend}>
         <div className={style.svgBox}>
           {photo_url ? (
-            <img
-              className={style.imgPhoto}
-              src={photo_url}
-              alt=""
-            />
+            <img className={style.imgPhoto} src={photo_url} alt="" />
           ) : (
             <ProfileNavSvg />
           )}
@@ -51,9 +49,19 @@ function FriendItem(props: AllFriendsType) {
           </p>
         </div>
       </div>
-      <div className={style.coinFriend}>
-        <img className={style.imgCoinFriend} src={imgCoin} alt="" />
-        <p className={style.descrCoinFriend}>+{income_from_referrals}</p>
+      <div style={{display: 'flex', alignItems: 'center', gap: '5px'}}>
+        <div className={style.coinFriend}>
+          <img className={style.imgCoinFriend} src={imgCoinSilver} alt="" />
+          <p className={style.descrCoinFriend}>
+            +{income_from_referrals_silver}
+          </p>
+        </div>
+        <div className={style.coinFriend}>
+          <img className={style.imgCoinFriend} src={imgCoinGold} alt="" />
+          <p className={style.descrCoinFriend}>
+            +{income_from_referrals_gold}
+          </p>
+        </div>
       </div>
     </Button>
   );

@@ -9,6 +9,7 @@ export interface MainTypeProps {
   gold_coin: number;
   can_get_bonus: boolean;
   count_of_visit_day: number;
+  is_admin: boolean
 }
 
 export interface MainTypeBonusesProps {

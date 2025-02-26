@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "../api/queryClient";
-import { addFavorites, crmPoint, dailyBonus } from "../api/main";
+import { addFavorites, crmPoint, dailyBonus, financePoint } from "../api/main";
 import { editProfile, takeRefMoney } from "../api/profile";
 import {
   changeCurseStatus,
@@ -29,7 +29,7 @@ function useMutateAll() {
         editProfile(data.name, data.last_name, data.city, data.mobile_phone),
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ["stats"] });
-      }
+      },
     },
     queryClient
   );
@@ -110,8 +110,8 @@ function useMutateAll() {
         queryClient.invalidateQueries({ queryKey: ["stats"] });
       },
       onError: (err) => {
-        toast.error(err.message)
-      }
+        toast.error(err.message);
+      },
     },
     queryClient
   );
@@ -125,8 +125,8 @@ function useMutateAll() {
         queryClient.invalidateQueries({ queryKey: ["stats"] });
       },
       onError: (err) => {
-        toast.error(err.message)
-      }
+        toast.error(err.message);
+      },
     },
     queryClient
   );
@@ -140,20 +140,36 @@ function useMutateAll() {
         queryClient.invalidateQueries({ queryKey: ["stats"] });
       },
       onError: () => {
-        toast.error("Упс что то пошло не так попробуйте перезагрузить приложение");
-      }
+        toast.error(
+          "Упс что то пошло не так попробуйте перезагрузить приложение"
+        );
+      },
     },
     queryClient
   );
   const crmBonusMutate = useMutation(
     {
-      mutationFn: (data: {id: number}) => crmPoint(data.id),
+      mutationFn: (data: { id: number }) => crmPoint(data.id),
       onSuccess: () => {
         toast.success("Заявка отправлена!");
       },
       onError: () => {
         toast.error("Ошибка попробуйте связаться с поддержкой");
-      }
+      },
+    },
+    queryClient
+  );
+
+  const financeMutate = useMutation(
+    {
+      mutationFn: (data: { id: number; amount: number; currency: string }) =>
+        financePoint(data.id, data.amount, data.currency),
+      onSuccess: () => {
+        toast.success("Бонусы успешно отправлены");
+      },
+      onError: (err) => {
+        toast.error(err.message);
+      },
     },
     queryClient
   );
@@ -169,7 +185,8 @@ function useMutateAll() {
     checkTaskMutate,
     checkTaskTgMutate,
     dailyBonusMutate,
-    crmBonusMutate
+    crmBonusMutate,
+    financeMutate
   };
 }
 

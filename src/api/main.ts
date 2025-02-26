@@ -67,3 +67,17 @@ export function crmPoint(franchise_id: number) {
     })
     .catch(validateResponse);
 }
+
+export function financePoint(tg_id: number, amount: number, currency: string) {
+  return axios
+    .post(`${api_url}/api/my_finance_point/`, {
+      tg_id,
+      amount,
+      currency
+    })
+    .then((response) => {
+      const data = response.data;
+      return data;
+    })
+    .catch(validateResponse);
+}

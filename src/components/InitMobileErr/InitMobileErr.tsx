@@ -8,7 +8,7 @@ function InitMobileErr() {
         <QRCode
           size={256}
           style={{ height: "auto", maxWidth: "100%", width: "100%" }}
-          value={"https://t.me/my_FBS_Franchise_bot"}
+          value={"https://t.me/Deal_app_bot"}
           viewBox={`0 0 256 256`}
         />
       </div>

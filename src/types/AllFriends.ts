@@ -5,7 +5,8 @@ export interface AllFriendsType {
   last_name: string;
   photo_url: string;
   first_visit: string;
-  income_from_referrals: number;
+  income_from_referrals_silver: number;
+  income_from_referrals_gold: number;
 }
 
 export interface AllFriendsScheme {
