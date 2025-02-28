@@ -28,6 +28,7 @@ function useMutateAll() {
       }) =>
         editProfile(data.name, data.last_name, data.city, data.mobile_phone),
       onSuccess: () => {
+        toast.success("Успешно изменено!")
         queryClient.invalidateQueries({ queryKey: ["stats"] });
       },
     },
