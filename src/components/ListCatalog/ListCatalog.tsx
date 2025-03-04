@@ -64,7 +64,7 @@ export function ListCatalog({ list }: ListCatalogProps) {
               Инвестиции: <span className={style.span}>{item.investment}</span>
             </p>
             <p className={style.numberDescr}>
-              Роялти: <span className={style.span}>{item.royalty}%</span>
+              Роялти: <span className={style.span}>{item.royalty}</span>
             </p>
           </div>
           <div className={style.boxNumberStart}>

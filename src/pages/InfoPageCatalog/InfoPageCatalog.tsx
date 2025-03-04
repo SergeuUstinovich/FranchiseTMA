@@ -123,7 +123,7 @@ function InfoPageCatalog() {
         <h2 className={style.title}>Условия франшизы</h2>
         <Descr descr="Инвестиции" span={data.investment} />
         <Descr descr="Паушальный взнос" span={data.paysh} />
-        <Descr descr="Роялти" span={`${data.royalty}%`} />
+        <Descr descr="Роялти" span={data.royalty} />
         <Descr descr="Год основания" span={data.year_of_foundation} />
         <Descr descr="География" span={data.geography} />
       </div>

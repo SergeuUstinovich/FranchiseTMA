@@ -6,7 +6,7 @@ export interface AllFranchiseType {
   lvl: number;
   investment: string;
   paysh: string;
-  royalty: number;
+  royalty: string;
   year_of_foundation: number;
   geography: string;
   profit: string;
