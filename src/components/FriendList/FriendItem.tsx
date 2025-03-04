@@ -7,6 +7,7 @@ import { AllFriendsType } from "../../types/AllFriends";
 import { formatDate } from "../../helpers/formatDate";
 import useMutateAll from "../../utils/useMutateAll";
 import { Button } from "../../ui/Button";
+import { queryClient } from "../../api/queryClient";
 
 function FriendItem(props: AllFriendsType) {
   const {
@@ -21,6 +22,7 @@ function FriendItem(props: AllFriendsType) {
   } = props;
 
   const { takeMoneyRefMutate } = useMutateAll();
+  const isFetching = queryClient.isFetching({queryKey: ["friend"]})
 
   const handleTakeMoney = () => {
     takeMoneyRefMutate.mutate({ id });
@@ -28,7 +30,7 @@ function FriendItem(props: AllFriendsType) {
 
   return (
     <Button
-      isDisabled={takeMoneyRefMutate.isPending}
+      isDisabled={takeMoneyRefMutate.isPending || isFetching > 0}
       onClick={income_from_referrals_silver || income_from_referrals_gold > 0 ? handleTakeMoney : () => {}}
       className={style.boxItem}
     >
