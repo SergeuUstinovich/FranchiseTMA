@@ -96,8 +96,6 @@ export function ListTasks({ arr }: ListTasksProps) {
       <SlidingPanel
         isOpen={isOpen}
         onClose={handleClose}
-        initialHeight="60%"
-        fullHeight="60%"
       >
         {task && (
           <SlidingInfoBonus

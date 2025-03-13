@@ -49,7 +49,7 @@ export function ListPageUser() {
         ))}
       </ul>
     </div>
-    <SlidingPanel onClose={handleClose} initialHeight="60%" fullHeight="60%" isOpen={isOpen} lazy>
+    <SlidingPanel onClose={handleClose} isOpen={isOpen} lazy>
         <AdminPanel />
     </SlidingPanel>
     </>

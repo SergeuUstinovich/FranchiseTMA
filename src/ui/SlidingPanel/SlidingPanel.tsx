@@ -1,39 +1,93 @@
-import { ReactNode, useState, useRef, useEffect } from "react";
+import { ReactNode, useState, useRef, useEffect, useLayoutEffect } from "react";
 import "./SlidingPanel.module.scss";
 import style from "./SlidingPanel.module.scss";
 import { classNames } from "../../utils/classNames";
 import Portal from "../Portal/Portal";
 
 interface SlidingPanelProps {
-  initialHeight: string;
-  fullHeight: string;
+  initialHeight?: string;
+  fullHeight?: string;
   children: ReactNode;
   isOpen: boolean;
   onClose?: () => void;
   darkened?: boolean;
   className?: string;
   lazy?: boolean;
+  paddingBot?: number;
+  paddingRightLeft?: number;
+  paddingTop?: number;
 }
 
 function SlidingPanel(props: SlidingPanelProps) {
   const {
-    initialHeight,
-    fullHeight,
+    initialHeight = "0",
+    fullHeight = "0",
     children,
     isOpen,
     onClose,
     darkened,
     className = "",
     lazy,
+    paddingBot = 16,
+    paddingRightLeft = 15,
+    paddingTop = 32,
   } = props;
 
-  const [currentHeight, setCurrentHeight] = useState("0");
-  const panelRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const [currentHeight, setCurrentHeight] = useState(initialHeight);
+  const [contentHeight, setContentHeight] = useState(initialHeight);
+  // const panelRef = useRef<HTMLDivElement>(null);
   const startY = useRef(0);
   const startHeight = useRef(0);
   const timeRef = useRef<ReturnType<typeof setTimeout>>();
   const direction = useRef<"up" | "down" | null>(null);
-  const [isMouned, setIsMouned] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  // Используем useLayoutEffect для синхронного обновления высоты
+  useLayoutEffect(() => {
+    if (isOpen && contentRef.current) {
+      const resizeObserver = new ResizeObserver(() => {
+        if (!contentRef.current) return;
+        const contentHeightPx = contentRef.current.offsetHeight;
+        const viewportHeight = window.innerHeight;
+        const maxHeight = viewportHeight * 0.9;
+
+        if (initialHeight === "0") {
+          if (contentHeightPx > maxHeight) {
+            setCurrentHeight(parseInt(fullHeight) === 0 ? "90svh" : fullHeight);
+          } else {
+            setCurrentHeight(`${contentHeightPx + paddingBot + paddingTop}px`);
+            setContentHeight(`${contentHeightPx + paddingBot + paddingTop}px`);
+          }
+        } else {
+          setCurrentHeight(initialHeight);
+        }
+      });
+      resizeObserver.observe(contentRef.current);
+
+      return () => {
+        if (contentRef.current) {
+          resizeObserver.unobserve(contentRef.current);
+        }
+      };
+    }
+  }, [isOpen, children, paddingBot, paddingTop, isMounted]);
+
+  // Логика для закрытия панели
+  useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add(style.bodyOpen);
+      document.addEventListener("keydown", handleKeyDown);
+      window.addEventListener("popstate", handlePopState);
+    }
+
+    return () => {
+      if (timeRef.current) clearTimeout(timeRef.current);
+      document.body.classList.remove(style.bodyOpen);
+      document.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, [isOpen]);
 
   const handleMouseDown = (e: React.TouchEvent) => {
     startY.current = e.touches[0].clientY;
@@ -45,20 +99,29 @@ function SlidingPanel(props: SlidingPanelProps) {
   const handleMouseMove = (e: TouchEvent) => {
     const deltaY = startY.current - e.touches[0].clientY;
     const newHeight = startHeight.current + deltaY;
+
+    // Определяем направление движения
     if (deltaY > 0) {
       direction.current = "up";
     } else {
       direction.current = "down";
     }
-    if (newHeight >= parseInt(fullHeight)) {
-      setCurrentHeight(fullHeight);
-      // setIsExpanded(true);
-    } else if (newHeight <= parseInt(initialHeight)) {
-      setCurrentHeight(initialHeight);
-      // setIsExpanded(false);
-    } // else {
-    //   setCurrentHeight(`${newHeight}px`);
-    // }
+
+    // Преобразуем fullHeight и initialHeight в числа
+    const fullHeightValue = parseFloat(fullHeight);
+    const initialHeightValue = parseFloat(initialHeight);
+
+    if (!isNaN(fullHeightValue) && !isNaN(initialHeightValue)) {
+      if (newHeight >= fullHeightValue && fullHeightValue !== 0) {
+        setCurrentHeight(fullHeight);
+      } else if (newHeight <= parseInt(currentHeight)) {
+        if (initialHeight === "0") {
+          setCurrentHeight(contentHeight);
+        } else {
+          setCurrentHeight(initialHeight);
+        }
+      }
+    }
   };
 
   const handleMouseUp = () => {
@@ -66,8 +129,9 @@ function SlidingPanel(props: SlidingPanelProps) {
     document.removeEventListener("touchend", handleMouseUp);
 
     if (
-      parseInt(currentHeight) <= parseInt(initialHeight) &&
-      direction.current === "down"
+      direction.current === "down" &&
+      parseInt(currentHeight) ===
+        parseInt(initialHeight === "0" ? contentHeight : initialHeight)
     ) {
       setCurrentHeight("0");
       if (onClose) {
@@ -98,84 +162,87 @@ function SlidingPanel(props: SlidingPanelProps) {
     }
   };
 
-  const handleOverlayClick = (e: React.MouseEvent) => {
-    if (darkened && e.target === panelRef.current) {
-      if(onClose)
-      onClose();
+  const onContentClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+  };
+
+  const handleCrossClose = () => {
+    if (isOpen) {
+      if (onClose) {
+        setCurrentHeight("0");
+        timeRef.current = setTimeout(() => {
+          onClose();
+        }, 300);
+      }
     }
   };
 
-  useEffect(() => {
-    if (isOpen) {
-      document.body.classList.add(style.bodyOpen);
-      setCurrentHeight(initialHeight);
-      document.addEventListener("keydown", handleKeyDown);
-      window.addEventListener("popstate", handlePopState);
-    }
-    return () => {
-      clearTimeout(timeRef.current);
-      document.body.classList.remove(style.bodyOpen);
-      document.removeEventListener("touchmove", handleMouseMove);
-      document.removeEventListener("touchend", handleMouseUp);
-      document.removeEventListener("keydown", handleKeyDown);
-      window.removeEventListener("popstate", handlePopState);
-    };
-  }, [isOpen]);
-
   const mods: Record<string, boolean | undefined> = {
-    // [style.expanded]: isExpanded,
     [style.visible]: isOpen,
     [style.darkened]: !isOpen ? false : darkened,
   };
 
   useEffect(() => {
     if (isOpen) {
-      setIsMouned(true);
+      setIsMounted(true);
     }
   }, [isOpen]);
 
-  if (lazy && !isMouned) {
+  if (lazy && !isMounted) {
     return null;
   }
 
   return (
     <Portal>
       <div
-        ref={panelRef}
+        onClick={handleCrossClose}
+        // ref={panelRef}
         className={classNames(style.slidingPanel, mods, [
           "app_modal",
           className,
         ])}
-        onClick={handleOverlayClick}
         style={
           !darkened
             ? {
                 height: isOpen ? currentHeight : "0",
-                bottom: isOpen ? "0" : `-${fullHeight}`,
+                bottom: isOpen ? "0" : `-90vh`,
                 transition: "height 0.3s ease",
               }
             : {}
         }
       >
         <div
+          onClick={onContentClick}
           className={style.sliding}
           style={
             darkened
               ? {
                   height: isOpen ? currentHeight : "0",
-                  bottom: isOpen ? "0" : `-${fullHeight}`,
+                  bottom: isOpen ? "0" : `-90vh`,
                   transition: "height 0.3s ease",
                 }
               : {}
           }
         >
           <div
+            style={{
+              padding: `0 ${paddingRightLeft}px`,
+              paddingTop: `${paddingTop}px`,
+            }}
             className={style.overlay}
           >
             <div onTouchStart={handleMouseDown} className={style.dragZone}>
               <div className={style.dragHandle} />
             </div>
-            <div className={style.panelContent}>{children}</div>
+            <div className={style.panelContent}>
+              <div
+                style={{ paddingBottom: `${paddingBot}px` }}
+                ref={contentRef}
+                className={style.boxContent}
+              >
+                {children}
+              </div>
+            </div>
           </div>
         </div>
       </div>

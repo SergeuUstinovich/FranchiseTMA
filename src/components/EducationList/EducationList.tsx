@@ -193,8 +193,6 @@ export function EducationList({ arrs }: EducationListProps) {
         ))}
       </ul>
       <SlidingPanel
-        initialHeight="60%"
-        fullHeight="60%"
         isOpen={isOpen}
         onClose={handleCloseSlide}
         lazy

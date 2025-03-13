@@ -129,8 +129,6 @@ function Catalog() {
       <SlidingPanel
         darkened
         isOpen={isOpen}
-        initialHeight="70%"
-        fullHeight="70%"
         onClose={handleClose}
       >
         {bonus && mainInfo ? (
@@ -146,8 +144,6 @@ function Catalog() {
       <SlidingPanel
         darkened
         isOpen={isOpenFilter}
-        initialHeight="70%"
-        fullHeight="70%"
         onClose={handleCloseFilter}
         className={style.slideFilter}
       >
