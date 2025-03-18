@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import style from "./ListCatalog.module.scss";
 import { FavoritesSvg, LockLvlSvg } from "../../assets/svg";
 import { Button } from "../../ui/Button";
@@ -19,10 +19,15 @@ const api_url = import.meta.env.VITE_API_PHOTO_URL;
 export function ListCatalog({ list }: ListCatalogProps) {
   const { addFavoriteMutate } = useMutateAll();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const handleFavorites = (id: number) => {
     addFavoriteMutate.mutate({ id });
   };
 
+  const handleNavLink = (id: number) => {
+    navigate(`/catalog/${id}`);
+  };
 
   useEffect(() => {
     if (addFavoriteMutate.isSuccess) {
@@ -55,10 +60,15 @@ export function ListCatalog({ list }: ListCatalogProps) {
             )}
           </div>
           <h2 className={style.title}>{item.name}</h2>
-          <div className={style.descr} dangerouslySetInnerHTML={{ __html: item.description.length > 100
-              ? item.description.substring(0, 140) + "..."
-              : item.description }}>
-          </div>
+          <div
+            className={style.descr}
+            dangerouslySetInnerHTML={{
+              __html:
+                item.description.length > 100
+                  ? item.description.substring(0, 140) + "..."
+                  : item.description,
+            }}
+          ></div>
           <div className={style.boxNumber}>
             <p className={style.numberDescr}>
               Инвестиции: <span className={style.span}>{item.investment}</span>
@@ -73,9 +83,13 @@ export function ListCatalog({ list }: ListCatalogProps) {
             </p>
           </div>
 
-          <Link className={style.link} to={`/catalog/${item.id}`}>
+          <Button
+            onClick={() => handleNavLink(item.id)}
+            isDisabled={!item.available}
+            className={style.link}
+          >
             Подробнее
-          </Link>
+          </Button>
           <Button
             isDisabled={addFavoriteMutate.isPending}
             onClick={() => handleFavorites(item.id)}
