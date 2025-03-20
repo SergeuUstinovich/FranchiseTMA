@@ -50,6 +50,10 @@ function InfoPageCatalog() {
     tg.openLink(link)
   }
 
+  const handleSupport = () => {
+    tg.openTelegramLink('https://t.me/Deal_Agents_support_bot')
+  }
+
   useEffect(() => {
     if (data) {
       const truncatedDescr =
@@ -182,7 +186,7 @@ function InfoPageCatalog() {
         link={data.dogovor}
       />
       <div className={style.boxBtn}>
-        <Button style={{ maxWidth: "48px" }} className={style.btn}>
+        <Button onClick={handleSupport} style={{ maxWidth: "48px" }} className={style.btn}>
           <img src={support} alt="" />
         </Button>
         <Button
